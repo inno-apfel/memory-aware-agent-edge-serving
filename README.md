@@ -22,6 +22,18 @@ The endpoint is loaded when `src.send` is imported. Start the model server
 before using the request helper, and make sure the configured URL is reachable.
 The request helper sends streaming chat-completion requests to this endpoint.
 
+## Install Llama.cpp
+
+```bash
+# install llama.cpp
+curl -LsSf https://llama.app/install.sh | sh
+```
+
+```bash
+# Download and run a model directly from Hugging Face
+llama serve -hf ggml-org/Qwen3.5-0.8B-GGUF
+```
+
 ## Run the experiment
 
 Open `main.ipynb` in Jupyter and run its cells in order. It demonstrates:
