@@ -1,0 +1,15 @@
+name: '291'
+channels:
+  - https://repo.anaconda.com/pkgs/main
+  - https://repo.anaconda.com/pkgs/r
+  - defaults
+dependencies:
+  - python=3.12.15
+  - pyyaml
+  - psutil=7.2.2
+  - requests
+  - pandas=3.0.6
+  - jupyter
+  - nbclassic
+  - matplotlib
+prefix: /home/inno/miniconda3/envs/291
