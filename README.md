@@ -5,6 +5,24 @@ completion requests alongside the serving process's memory and CPU usage. The
 main workflow is in [`main.ipynb`](./main.ipynb); request and process-monitoring
 helpers are in `src/`.
 
+## Project structure
+
+```text
+.
+├── config.yml             # Chat-completions endpoint
+├── environment.yml        # Conda environment dependencies
+├── launch_server.py       # Server launcher
+├── main.ipynb             # Experiment notebook
+├── results/               # Generated request data and plots
+├── src/
+│   ├── monitor.py         # Process resource monitoring
+│   ├── runner.py          # Request workload runner
+│   ├── send.py            # Streaming request helper
+│   └── utils.py           # Shared configuration and process helpers
+└── workloads/
+    └── examples.jsonl     # Example request workloads
+```
+
 ## Requirements and configuration
 
 The supplied [`environment.yml`](./environment.yml) lists the Python

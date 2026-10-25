@@ -1,0 +1,2 @@
+{"messages": [{"role": "user", "content": "prompt"}], "max_tokens": 1024, "stream": true, "temperature": 0, "seed": 42, "ignore_eos": true, "cache_prompt": false, "chat_template_kwargs": {"enable_thinking": false}}
+{"messages": [{"role": "user", "content": "prompt"}], "max_tokens": 1024, "stream": true, "temperature": 0, "seed": 42, "ignore_eos": true, "cache_prompt": false, "chat_template_kwargs": {"enable_thinking": false}}

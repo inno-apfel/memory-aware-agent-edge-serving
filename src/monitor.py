@@ -1,13 +1,13 @@
-"""Monitor a process tree and optionally write its samples to CSV."""
+# monitor.py
 
-import argparse
-import csv
-import time
-from collections.abc import Iterator
+"""Monitor a process tree and optionally write its samples to CSV."""
 
 import psutil
 
-from src.utils import find_server_pid
+from collections.abc import Iterator
+import time
+
+from src.utils import get_server_pid
 
 FIELDS = (
     "t_wall",
@@ -21,7 +21,7 @@ FIELDS = (
 )
 MetricValue = float | int | str
 
-pid = find_server_pid()
+pid = get_server_pid()
 
 def run_monitor(stop_event, samples):
     monitor = monitor_process()

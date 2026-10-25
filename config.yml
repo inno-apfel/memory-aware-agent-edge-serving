@@ -1,1 +1,6 @@
-url: http://127.0.0.1:9931/v1/chat/completions
+server:
+  model: ggml-org/Qwen3.5-0.8B-GGUF   # passed to -hf
+  host: 127.0.0.1
+  port: 9931                          # --port
+  context_size: 40960                 # -c  (total, split across slots)
+  parallel_slots: 10                  # -np (per-slot context = 40960 / 10 = 4096)
