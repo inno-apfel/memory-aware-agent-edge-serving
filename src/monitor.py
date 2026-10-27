@@ -21,16 +21,18 @@ FIELDS = (
 )
 MetricValue = float | int | str
 
-pid = get_server_pid()
 
-def run_monitor(stop_event, samples):
-    monitor = monitor_process()
+def run_monitor(stop_event, samples, pid=None, interval=0.2):
+    monitor = monitor_process(pid=pid, interval=interval)
     for sample in monitor:
         samples.append(sample)
         if stop_event.is_set():
             break
 
-def monitor_process(pid: int = pid, interval: float = 0.2) -> Iterator[dict[str, MetricValue]]:
+
+def monitor_process(
+    pid: int | None = None, interval: float = 0.2
+) -> Iterator[dict[str, MetricValue]]:
     """Yield process-tree resource samples until the process exits.
 
     Each sample is a dictionary with the same fields as the CSV output. The
@@ -39,7 +41,7 @@ def monitor_process(pid: int = pid, interval: float = 0.2) -> Iterator[dict[str,
     if interval <= 0:
         raise ValueError("interval must be greater than zero")
 
-    process = psutil.Process(pid)
+    process = psutil.Process(get_server_pid() if pid is None else pid)
     process.cpu_percent()  # Prime CPU measurement; the first value is always 0.
 
     while True:
@@ -54,7 +56,7 @@ def monitor_process(pid: int = pid, interval: float = 0.2) -> Iterator[dict[str,
         except psutil.NoSuchProcess:
             yield {
                 "t_wall": time.time(),
-                "t_mono": time.monotonic(),
+                "t_mono": time.perf_counter(),
                 "rss": "DEAD",
                 "uss": "",
                 "vms": "",
@@ -66,7 +68,7 @@ def monitor_process(pid: int = pid, interval: float = 0.2) -> Iterator[dict[str,
 
         yield {
             "t_wall": time.time(),
-            "t_mono": time.monotonic(),
+            "t_mono": time.perf_counter(),
             "rss": rss,
             "uss": uss,
             "vms": vms,
