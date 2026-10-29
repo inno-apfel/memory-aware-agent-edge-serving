@@ -9,13 +9,13 @@ from http.server import BaseHTTPRequestHandler, ThreadingHTTPServer
 
 def answer(messages):
     prompt = messages[-1]["content"]
-    if "latest tool result" in prompt:
+    if "latest tool result" in prompt.lower():
         return next(
             m["content"].split(": ")[1]
             for m in reversed(messages)
             if m["content"].startswith("Tool result:")
         )
-    match = re.search(r"integer sum of (\d+) and (\d+)", prompt)
+    match = re.search(r"(?:integer )?sum of (\d+) and (\d+)", prompt)
     if match:
         return str(int(match[1]) + int(match[2]))
     return ("FIFO processes ready requests in their arrival order. " * 25) + "END"
@@ -40,6 +40,8 @@ class Handler(BaseHTTPRequestHandler):
         if prompt == "TIMEOUT":
             time.sleep(0.2)
         text = answer(body["messages"])
+        if body.get("response_format"):
+            text = json.dumps({"answer": int(text)})
         time.sleep(0.025 if body["max_tokens"] < 512 else 0.08)
         try:
             self.send_response(200)

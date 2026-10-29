@@ -18,7 +18,7 @@ Use a new output directory on each run. The mock is a local HTTP fixture, not an
 LLM. Its throughput and process memory are functional validation data only.
 The script starts/stops the fixture and compares K=1,2,4 with the same workload.
 
-## Real model (integration pending)
+## Real model
 
 `config.yml` and `launch_server.py` retain the original server configuration.
 After Member A verifies the runtime command, model and resource limits:
@@ -32,6 +32,23 @@ python -m scripts.run_experiment --pid SERVER_PID --output results/real-first
 Real runs require a local server PID for memory sampling. Remote memory sampling
 and strict whole-task deadlines are not yet implemented. The HTTP timeout is an
 inactivity timeout. Token lengths and context capacity need real-runtime calibration.
+
+### Bounded thinking workload profile
+
+The original workload is retained as `v1`. For Qwen3.5-0.8B, use the separately
+versioned `v2` profile after verifying support for llama.cpp's
+`reasoning_budget_tokens` and JSON schema output:
+
+```bash
+python -m workloads.generate --profile v2 --seed 42 --count 16 --output workloads/tasks-v2.jsonl
+python -m scripts.run_experiment --pid SERVER_PID --workload workloads/tasks-v2.jsonl --concurrency 1 2 4 --timeout 120 --output results/real-v2-new-run
+```
+
+Arithmetic uses a 512-token thinking budget and an exact integer `answer` JSON
+field. Tool-copy steps turn thinking off and bind the actual tool output into
+the next prompt. Long prose keeps the original 180-word minimum and END check.
+See [quality calibration](docs/quality-calibration.md) for the rationale and
+comparability limits. Use the same frozen file for every concurrency setting.
 
 ## Layout
 
