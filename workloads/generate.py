@@ -6,7 +6,9 @@ import random
 from pathlib import Path
 
 
-def generate(count=16, seed=42, interval=0.02, tool_delay=0.1):
+def generate(count=16, seed=42, interval=0.02, tool_delay=0.1, profile="v1"):
+    if profile not in ("v1", "v2"):
+        raise ValueError("Unknown workload profile")
     if count < 1 or interval < 0 or tool_delay < 0:
         raise ValueError("Invalid workload size/timing")
     rng = random.Random(seed)
@@ -54,6 +56,69 @@ def generate(count=16, seed=42, interval=0.02, tool_delay=0.1):
                 steps=steps,
             )
         )
+    if profile == "v2":
+        for task in tasks:
+            task["workload_profile"] = "v2-bounded-thinking-json"
+            for step_index, step in enumerate(task["steps"]):
+                if "expected" in step:
+                    step["prompt"] = (
+                        step["prompt"]
+                        .replace(
+                            "Return only the integer sum of", "Calculate the sum of"
+                        )
+                        .replace(
+                            "Return only the integer in the latest tool result.",
+                            "Read the number in the latest Tool result message. "
+                            "The external tool has now returned {tool_result}. "
+                            "Copy this NEW value, replacing your previous answer.",
+                        )
+                        + " Return a JSON object with the result in the answer field."
+                    )
+                    step["answer_format"] = "json_integer"
+                    step["max_tokens"] = 768
+                    step["generation"] = {
+                        "chat_template_kwargs": {"enable_thinking": True},
+                        "reasoning_budget_tokens": 512,
+                        "response_format": {
+                            "type": "json_schema",
+                            "json_schema": {
+                                "name": "calculation",
+                                "schema": {
+                                    "type": "object",
+                                    "properties": {"answer": {"type": "integer"}},
+                                    "required": ["answer"],
+                                    "additionalProperties": False,
+                                },
+                            },
+                        },
+                    }
+                    if step_index > 0:
+                        # Copying an actual tool value does not require arithmetic reasoning.
+                        step["max_tokens"] = 128
+                        step["generation"]["chat_template_kwargs"][
+                            "enable_thinking"
+                        ] = False
+                        step["generation"].pop("reasoning_budget_tokens")
+                else:
+                    task["initial_messages"] = [
+                        {
+                            "role": "system",
+                            "content": "Follow the user's length requirement. "
+                            "Always end your final response with END alone on its own line. "
+                            "FIFO means the oldest queued job is processed first.",
+                        }
+                    ]
+                    step["prompt"] = (
+                        "Explain FIFO scheduling in six paragraphs of 40 to 50 words each. "
+                        "Cover arrival order, queue operation, a practical example, advantages, "
+                        "head-of-line blocking, and comparison with other scheduling policies. "
+                        "Write at least 240 words in total. After all six paragraphs, "
+                        "write END alone on the final line."
+                    )
+                    step["max_tokens"] = 1024
+                    step["generation"] = {
+                        "chat_template_kwargs": {"enable_thinking": False}
+                    }
     return tasks
 
 
@@ -63,11 +128,15 @@ def main():
     parser.add_argument("--count", type=int, default=16)
     parser.add_argument("--seed", type=int, default=42)
     parser.add_argument("--interval", type=float, default=0.02)
+    parser.add_argument("--profile", choices=["v1", "v2"], default="v1")
     a = parser.parse_args()
     p = Path(a.output)
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(
-        "".join(json.dumps(t) + "\n" for t in generate(a.count, a.seed, a.interval)),
+        "".join(
+            json.dumps(t) + "\n"
+            for t in generate(a.count, a.seed, a.interval, profile=a.profile)
+        ),
         encoding="utf-8",
     )
 

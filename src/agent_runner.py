@@ -8,11 +8,34 @@ from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
 from src.transport import send_request
 
+GENERATION_FIELDS = {
+    "chat_template_kwargs",
+    "reasoning_budget_tokens",
+    "response_format",
+}
+
+
+def integer_answer(step, text):
+    """Parse the declared output format without accepting equations or coercing booleans."""
+    if step.get("answer_format") == "json_integer":
+        value = json.loads(text)
+        if (
+            not isinstance(value, dict)
+            or set(value) != {"answer"}
+            or type(value["answer"]) is not int
+        ):
+            raise ValueError("Expected exactly one integer answer field")
+        return str(value["answer"])
+    return text.strip()
+
 
 def validate(step, text):
     text = text.strip()
     if "expected" in step:
-        return text == step["expected"]
+        try:
+            return integer_answer(step, text) == step["expected"]
+        except (ValueError, TypeError):
+            return False
     return (
         bool(text)
         and len(text.split()) >= step.get("min_words", 0)
@@ -31,6 +54,8 @@ def run_tasks(tasks, concurrency, output, url=None, timeout=30, sender=send_requ
         for s in t["steps"]:
             if s.get("tool_delay_s", 0) < 0 or s["max_tokens"] < 1:
                 raise ValueError("Invalid step")
+            if set(s.get("generation", {})) - GENERATION_FIELDS:
+                raise ValueError("Unsupported generation parameters")
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
     origin = time.perf_counter()
@@ -66,7 +91,7 @@ def run_tasks(tasks, concurrency, output, url=None, timeout=30, sender=send_requ
         st = dict(
             task=task,
             step=0,
-            history=[],
+            history=list(task.get("initial_messages", [])),
             queue_s=0.0,
             tool_wait_s=0.0,
             arrived=False,
@@ -157,7 +182,11 @@ def run_tasks(tasks, concurrency, output, url=None, timeout=30, sender=send_requ
                     tool_start = time.perf_counter() - origin
                     st["tool_wait_s"] += delay
                     if "tool_add" in step:
-                        value = int(result["response_text"].strip()) + step["tool_add"]
+                        value = (
+                            int(integer_answer(step, result["response_text"]))
+                            + step["tool_add"]
+                        )
+                        st["tool_result"] = value
                         st["history"].append(
                             dict(role="user", content=f"Tool result: {value}")
                         )
@@ -171,9 +200,11 @@ def run_tasks(tasks, concurrency, output, url=None, timeout=30, sender=send_requ
                         arrive(st, now)
                     emit("admit", st, ready=ready_at, sequence=order)
                     step = st["task"]["steps"][st["step"]]
+                    prompt = step["prompt"]
+                    if "{tool_result}" in prompt:
+                        prompt = prompt.replace("{tool_result}", str(st["tool_result"]))
                     body = dict(
-                        messages=st["history"]
-                        + [dict(role="user", content=step["prompt"])],
+                        messages=st["history"] + [dict(role="user", content=prompt)],
                         max_tokens=step["max_tokens"],
                         stream=True,
                         temperature=0,
@@ -182,6 +213,7 @@ def run_tasks(tasks, concurrency, output, url=None, timeout=30, sender=send_requ
                         stream_options={"include_usage": True},
                         chat_template_kwargs={"enable_thinking": False},
                     )
+                    body.update(step.get("generation", {}))
                     inflight[pool.submit(invoke, body)] = (st, ready_at, body)
                 time.sleep(0.001)
     finally:
