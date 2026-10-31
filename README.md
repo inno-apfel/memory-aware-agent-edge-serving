@@ -1,23 +1,64 @@
 # Memory-aware agent edge serving
 
-This branch implements Member B's workloads and request-level FIFO baseline.
-See [the implementation and run guide](docs/baseline.md) for definitions,
-artifact schemas, limits, and the deferred real-model integration checklist.
+**Research Question:** <br>
+On a memory-capped llama.cpp server, what limits completed agent work as concurrency, context size, and tool-delay idle time vary: decode bandwidth, KV capacity, or re-prefill after context loss?
 
-## Quick functional check
+# Quick start
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements-baseline.txt
-.\.venv\Scripts\python.exe -m workloads.generate --seed 42 --count 16
-.\.venv\Scripts\python.exe -m unittest discover -s tests -v
-.\.venv\Scripts\python.exe -m scripts.run_experiment --mock --output results/first-run
+### Set up conda enviroment
+
+```bash
+conda env create -f enviroment.yml
+conda activate 291
 ```
 
-Use a new output directory on each run. The mock is a local HTTP fixture, not an
-LLM. Its throughput and process memory are functional validation data only.
-The script starts/stops the fixture and compares K=1,2,4 with the same workload.
+### Start llama.cpp server
 
+```bash
+curl -LsSf https://llama.app/install.sh | sh
+python launch_server.py
+# grab llama.cpp server process ID for later
+pgreg -l llama
+```
+
+### Run Benchmark
+
+```bash
+python -m workloads.generate --profile v2 --seed 42 --count 16 --output workloads/tasks-v2.jsonl
+# replace SERVER_PID with found process ID
+python -m scripts.run_experiment --pid SERVER_PID --workload workloads/tasks-v2.jsonl --concurrency 1 2 4 --timeout 120 --output results/real-v2-new-run
+```
+
+## Project structure
+
+```text
+memory-aware-agent-edge-serving/
+├── docs/                       # Baseline notes and quality calibration
+├── results/                    # Generated experiment outputs (git-ignored)
+├── scripts/
+│   ├── mock_server.py           # Deterministic local HTTP fixture
+│   └── run_experiment.py        # Benchmark runner and summary generation
+├── src/
+│   ├── agent_runner.py          # Agent scheduling and task execution
+│   ├── monitor.py               # Process memory sampling
+│   ├── runner.py                # Runner entry points
+│   ├── send.py                  # Request/workload compatibility API
+│   ├── transport.py             # Streaming HTTP transport
+│   └── utils.py                 # Shared utilities
+├── tests/
+│   └── test_baseline.py         # Baseline regression tests
+├── workloads/
+│   ├── examples.jsonl           # Example request payloads
+│   ├── generate.py              # Seeded workload generator
+│   ├── tasks.jsonl              # Frozen baseline workload
+│   └── tasks-v2.jsonl           # Frozen v2 workload
+├── config.yml                   # Server configuration
+├── environment.yml              # Conda environment definition
+├── launch_server.py             # Local model server launcher
+└── README.md
+```
+
+<!-- 
 ## Real model
 
 `config.yml` and `launch_server.py` retain the original server configuration.
@@ -66,4 +107,4 @@ comparability limits. Use the same frozen file for every concurrency setting.
 
 Memory values are bytes. RSS is not GPU memory or KV occupancy. Stream chunks are
 not tokens; absent usage is null. All failures are retained. Results and virtual
-environments are ignored by Git and should be archived separately.
+environments are ignored by Git and should be archived separately. -->
