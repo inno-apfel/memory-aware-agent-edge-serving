@@ -1,6 +1,7 @@
+# Values consumed by launch_server.py and recorded in each run manifest.
 server:
-  model: ggml-org/Qwen3.5-0.8B-GGUF   # passed to -hf
+  model: ggml-org/Qwen3.5-0.8B-GGUF   # Hugging Face model identifier passed to -hf
   host: 127.0.0.1
   port: 9931                          # --port
-  context_size: 40960                 # -c  (total, split across slots)
-  parallel_slots: 10                  # -np (per-slot context = 40960 / 10 = 4096)
+  context_size: 40960                 # Total context passed to -c, shared across slots
+  parallel_slots: 10                  # llama.cpp slots passed to -np

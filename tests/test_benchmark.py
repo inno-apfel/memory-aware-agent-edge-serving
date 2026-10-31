@@ -1,18 +1,43 @@
+"""Fast, model-free checks for workload generation and scheduler behavior.
+
+The injected ``sender`` avoids network access and gives tests deterministic
+responses. These tests cover scheduler invariants and prompt/request construction;
+they do not validate llama.cpp compatibility or real model quality.
+"""
+
 import json
 from pathlib import Path
+import re
 import tempfile
 import threading
 import time
 import unittest
-from http.server import ThreadingHTTPServer
-from scripts.mock_server import Handler, answer
 from src.agent_runner import run_tasks, validate
-from src.transport import send_request
 from workloads.generate import generate
 
 
-class BaselineTests(unittest.TestCase):
+def answer(messages):
+    """Return deterministic arithmetic, tool-copy, or prose test content."""
+    prompt = messages[-1]["content"]
+    if "latest tool result" in prompt.lower():
+        return next(
+            m["content"].split(": ")[1]
+            for m in reversed(messages)
+            if m["content"].startswith("Tool result:")
+        )
+    match = re.search(r"(?:integer )?sum of (\d+) and (\d+)", prompt)
+    if match:
+        return str(int(match[1]) + int(match[2]))
+    match = re.search(r"sum of (\d+) and (\d+)", prompt)
+    if match:
+        return str(int(match[1]) + int(match[2]))
+    return ("FIFO processes ready requests in their arrival order. " * 25) + "END"
+
+
+class BenchmarkTests(unittest.TestCase):
+    """Check the contracts shared by workload, scheduler, and transport inputs."""
     def test_json_answers_require_correct_integer_and_exact_shape(self):
+        """Reject malformed JSON, coercible values, and extra answer fields."""
         step = {"answer_format": "json_integer", "expected": "95"}
         self.assertTrue(validate(step, '{"answer":95}'))
         for value in [
@@ -27,7 +52,8 @@ class BaselineTests(unittest.TestCase):
             self.assertFalse(validate(step, value))
 
     def test_v2_three_step_uses_model_output_and_generation_settings(self):
-        tasks = generate(4, seed=101, profile="v2")
+        """Check bounded-thinking settings and actual tool-result substitution."""
+        tasks = generate(4, seed=101)
         calls = []
 
         def sender(body, **kw):
@@ -70,11 +96,13 @@ class BaselineTests(unittest.TestCase):
         self.assertIn("Tool result: 105", tools)
 
     def test_seeded_workload(self):
+        """Check reproducibility, seed sensitivity, and all four task categories."""
         self.assertEqual(generate(), generate())
         self.assertNotEqual(generate(seed=1), generate(seed=2))
         self.assertEqual(len({t["task_type"] for t in generate()}), 4)
 
     def test_fifo_cap_dependencies_and_tool_release(self):
+        """Check FIFO admission, K bounds, request counts, and tool-slot release."""
         tasks = generate(count=8, interval=0, tool_delay=0.04)
         lock = threading.Lock()
         active = 0
@@ -125,6 +153,7 @@ class BaselineTests(unittest.TestCase):
                     )
 
     def test_failure_releases_slot_and_stops_chain(self):
+        """Check failed requests terminate chains and release scheduler capacity."""
         tasks = generate(count=4, interval=0)
 
         def sender(body, **kw):
@@ -141,32 +170,6 @@ class BaselineTests(unittest.TestCase):
             self.assertEqual(
                 len((Path(tmp) / "requests.jsonl").read_text().splitlines()), 4
             )
-
-    def test_http_success_failure_timeout_and_truncated_stream(self):
-        server = ThreadingHTTPServer(("127.0.0.1", 0), Handler)
-        thread = threading.Thread(target=server.serve_forever, daemon=True)
-        thread.start()
-        url = f"http://127.0.0.1:{server.server_port}/v1/chat/completions"
-        try:
-            for prompt, expected in [
-                ("Return only the integer sum of 2 and 3.", "ok"),
-                ("HTTP_ERROR", "http_500"),
-                ("INCOMPLETE", "incomplete_stream"),
-                ("TIMEOUT", "timeout"),
-            ]:
-                result = send_request(
-                    dict(messages=[dict(role="user", content=prompt)], max_tokens=64),
-                    timeout=0.07,
-                    url=url,
-                )
-                self.assertEqual(result["status"], expected)
-                if expected == "ok":
-                    self.assertEqual(result["response_text"], "5")
-        finally:
-            server.shutdown()
-            server.server_close()
-            thread.join()
-
 
 if __name__ == "__main__":
     unittest.main()

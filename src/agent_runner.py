@@ -1,4 +1,10 @@
-"""FIFO by ready time; K bounds model calls, tools hold no request slots."""
+"""Execute multi-step agent tasks under a FIFO model-request concurrency cap.
+
+The scheduler owns task readiness and history; :mod:`src.transport` owns HTTP.
+Tasks become ready at their arrival offset or after a tool delay. The cap applies
+only to in-flight model requests, so a task waiting on a simulated tool does not
+occupy a model slot. JSONL artifacts are written as the run progresses.
+"""
 
 import heapq
 import itertools
@@ -16,7 +22,12 @@ GENERATION_FIELDS = {
 
 
 def integer_answer(step, text):
-    """Parse the declared output format without accepting equations or coercing booleans."""
+    """Return an answer as text in the format declared by ``step``.
+
+    For ``json_integer``, accept exactly ``{"answer": <int>}``; booleans,
+    floats, extra keys, and stringified integers are rejected. Other steps use
+    trimmed response text unchanged.
+    """
     if step.get("answer_format") == "json_integer":
         value = json.loads(text)
         if (
@@ -30,6 +41,12 @@ def integer_answer(step, text):
 
 
 def validate(step, text):
+    """Check a model response against one workload step's quality rule.
+
+    Steps with ``expected`` use exact answer comparison. Prose steps use
+    ``min_words`` and ``suffix``. This is a structural quality check, not a
+    semantic assessment of generated prose.
+    """
     text = text.strip()
     if "expected" in step:
         try:
@@ -44,6 +61,40 @@ def validate(step, text):
 
 
 def run_tasks(tasks, concurrency, output, url=None, timeout=30, sender=send_request):
+    """Run tasks and return ``(task_rows, elapsed_seconds)``.
+
+    ``tasks`` is a sequence of mappings with unique ``task_id``, ``task_type``,
+    nonnegative ``arrival_offset_s``, and a nonempty ``steps`` list. Each step
+    has ``prompt`` and positive ``max_tokens``; optional fields include
+    ``expected``/``answer_format``, ``generation``, ``tool_delay_s``, and
+    ``tool_add``. ``initial_messages`` seeds a task's conversation history.
+
+    A min-heap orders ready work by scheduled time and insertion sequence. At
+    most ``concurrency`` calls are in flight. A successful step appends the
+    actual assistant response to history; optional local tool arithmetic uses
+    that response, then the next step becomes ready after its delay. Failed or
+    invalid responses end the task without retrying. ``sender`` is injectable
+    for deterministic scheduler tests and must return a mapping containing
+    ``status`` and, on success, ``response_text``.
+
+    Args:
+        tasks: Workload tasks, normally from ``workloads.generate`` or JSONL.
+        concurrency: Maximum number of simultaneous model requests.
+        output: Directory for timeline, event, request, and task JSONL files.
+        url: Completion endpoint forwarded to the sender. The experiment CLI
+            resolves it from ``config.yml`` unless ``--url`` is supplied.
+        timeout: Per-request connect/read inactivity timeout in seconds.
+        sender: Callable that accepts request body plus ``timeout`` and ``url``.
+
+    Returns:
+        A list of task result rows and total scheduler wall time in seconds.
+
+    Raises:
+        ValueError: For invalid run parameters, duplicate IDs, malformed tasks,
+            or unsupported generation parameters.
+    """
+    # Reject invalid run-wide settings and malformed workload records early,
+    # before opening output files or starting worker threads.
     if concurrency < 1 or timeout <= 0 or not tasks:
         raise ValueError("Invalid run parameters")
     if len({t["task_id"] for t in tasks}) != len(tasks):
@@ -56,6 +107,8 @@ def run_tasks(tasks, concurrency, output, url=None, timeout=30, sender=send_requ
                 raise ValueError("Invalid step")
             if set(s.get("generation", {})) - GENERATION_FIELDS:
                 raise ValueError("Unsupported generation parameters")
+    # Create the run clock, scheduler state, and append-only artifacts. The
+    # timeline origin lets downstream analysis align scheduler and monitor data.
     output = Path(output)
     output.mkdir(parents=True, exist_ok=True)
     origin = time.perf_counter()
@@ -72,6 +125,7 @@ def run_tasks(tasks, concurrency, output, url=None, timeout=30, sender=send_requ
     taskfile = (output / "tasks.jsonl").open("w", encoding="utf-8")
 
     def emit(kind, st, **extra):
+        """Append one timestamped event row and flush it for crash visibility."""
         events.write(
             json.dumps(
                 dict(
@@ -87,6 +141,8 @@ def run_tasks(tasks, concurrency, output, url=None, timeout=30, sender=send_requ
         )
         events.flush()
 
+    # Seed every task into the ready heap at its planned arrival time. The
+    # sequence number gives equal-time tasks a stable FIFO tie-breaker.
     for task in tasks:
         st = dict(
             task=task,
@@ -101,10 +157,12 @@ def run_tasks(tasks, concurrency, output, url=None, timeout=30, sender=send_requ
         heapq.heappush(ready, (task["arrival_offset_s"], next(seq), st))
 
     def arrive(st, now):
+        """Mark first injection time and log the planned versus actual arrival."""
         st.update(arrived=True, injected=now)
         emit("arrival", st, scheduled=st["task"]["arrival_offset_s"])
 
     def finish(st, status):
+        """Create the terminal task row once a chain succeeds or fails."""
         row = dict(
             run_id=output.name,
             task_id=st["task"]["task_id"],
@@ -125,6 +183,7 @@ def run_tasks(tasks, concurrency, output, url=None, timeout=30, sender=send_requ
         emit("task_end", st, status=status)
 
     def invoke(body):
+        """Call the sender while converting unexpected exceptions to a status."""
         dispatch = time.perf_counter() - origin
         try:
             result = sender(body, timeout=timeout, url=url)
@@ -135,10 +194,15 @@ def run_tasks(tasks, concurrency, output, url=None, timeout=30, sender=send_requ
     try:
         with ThreadPoolExecutor(max_workers=concurrency) as pool:
             while ready or inflight:
+                # Record tasks whose scheduled arrival has occurred.
                 now = time.perf_counter() - origin
                 for st in states:
                     if not st["arrived"] and st["task"]["arrival_offset_s"] <= now:
                         arrive(st, now)
+
+                # Reconcile completed HTTP calls before admitting new work.
+                # This updates task history and either ends the task or queues
+                # its next step after the local tool delay.
                 for future in list(inflight):
                     if not future.done():
                         continue
@@ -193,6 +257,9 @@ def run_tasks(tasks, concurrency, output, url=None, timeout=30, sender=send_requ
                     next_ready = tool_start + delay
                     emit("tool_wait", st, tool_start=tool_start, tool_end=next_ready)
                     heapq.heappush(ready, (next_ready, next(seq), st))
+
+                # Fill free request slots from the earliest ready tasks. Tool
+                # waits share this heap but do not count against K while pending.
                 now = time.perf_counter() - origin
                 while ready and ready[0][0] <= now and len(inflight) < concurrency:
                     ready_at, order, st = heapq.heappop(ready)
@@ -217,6 +284,7 @@ def run_tasks(tasks, concurrency, output, url=None, timeout=30, sender=send_requ
                     inflight[pool.submit(invoke, body)] = (st, ready_at, body)
                 time.sleep(0.001)
     finally:
+        # Always close logs, including when scheduling or the sender raises.
         events.close()
         reqs.close()
         taskfile.close()
