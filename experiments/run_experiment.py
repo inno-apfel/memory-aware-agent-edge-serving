@@ -20,7 +20,7 @@ import sys
 import threading
 import time
 
-from src.agent_runner import run_tasks
+from src.runner import run_tasks
 from src.monitor import monitor_process
 from src.utils import load_config
 

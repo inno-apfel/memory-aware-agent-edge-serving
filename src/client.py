@@ -12,7 +12,7 @@ import time
 import requests
 
 
-def send_request(body, timeout=30, url="http://127.0.0.1:9931/v1/chat/completions"):
+def send_request(url, body, timeout=30):
     """POST ``body`` and collect the streamed completion.
 
     Args:
@@ -26,6 +26,26 @@ def send_request(body, timeout=30, url="http://127.0.0.1:9931/v1/chat/completion
         Non-200, incomplete, transport, and protocol failures are represented
         as statuses instead of being raised. Invalid nonpositive timeouts raise
         ``ValueError`` before the request begins.
+
+        Example successful result (timings are illustrative, in seconds)::
+
+            {
+                "t_start": 1735689600.0,
+                "status": "ok",
+                "response_text": "The answer is 42.",
+                "reasoning_text": "",
+                "chunks": 4,
+                "ttft": 0.18,
+                "ttft_content": 0.18,
+                "usage": {
+                    "prompt_tokens": 12,
+                    "completion_tokens": 6,
+                    "total_tokens": 18,
+                },
+                "finish_reason": "stop",
+                "error": None,
+                "total": 0.42,
+            }
     """
     if timeout <= 0:
         raise ValueError("timeout must be positive")

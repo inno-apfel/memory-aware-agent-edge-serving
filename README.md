@@ -16,7 +16,7 @@ conda activate 291
 
 ```bash
 curl -LsSf https://llama.app/install.sh | sh
-python launch_server.py
+python -m src.server
 # grab llama.cpp server process ID for later
 pgrep llama
 ```
@@ -24,36 +24,35 @@ pgrep llama
 ### Run Benchmark
 
 ```bash
-python -m workloads.generate --seed 42 --count 16 --output workloads/tasks-v2.jsonl
+python -m src.workload --seed 42 --count 16 --output workloads/tasks-v2.jsonl
 # replace SERVER_PID with found process ID
-python -m scripts.run_experiment --pid SERVER_PID --workload workloads/tasks-v2.jsonl --concurrency 1 2 4 --timeout 120 --output results/real-v2-new-run
+python -m experiments.run_experiment --pid SERVER_PID --workload workloads/tasks-v2.jsonl --concurrency 1 2 4 --timeout 120 --output results/real-v2-new-run
 ```
 
 ## Project structure
 
 ```text
 memory-aware-agent-edge-serving/
+├── README.md                    # how to run everything
 ├── docs/
 │   ├── codebase-guide.md        # Architecture and contributor guide
 │   └── quality-calibration.md   # Workload quality calibration
-├── results/                    # Generated experiment outputs (git-ignored)
-├── scripts/
-│   └── run_experiment.py        # Benchmark runner and summary generation
 ├── src/
-│   ├── agent_runner.py          # Agent scheduling and task execution
-│   ├── monitor.py               # Process memory sampling
-│   ├── transport.py             # Streaming HTTP transport
+│   ├── server.py                # start llama-server, cap memory, record the manifest
+│   ├── client.py                # send requests, log timings
+│   ├── workload.py              # generate tasks.jsonl from a seed
+│   ├── runner.py                # the agent loop + FIFO scheduler
+│   ├── monitor.py               # sample memory
 │   └── utils.py                 # Shared utilities
-├── tests/
-│   └── test_benchmark.py        # Scheduler and validation tests
+├── experiments/
+│   └── run_experiment.py        # Benchmark runner and summary generation
 ├── workloads/
-│   ├── generate.py              # Seeded v2 workload generator
-│   └── tasks-v2.jsonl           # Frozen benchmark workload
+├── results/                     # Generated experiment outputs (git-ignored)
+├── tests/
 ├── config.yml                   # Server configuration
-├── environment.yml              # Conda environment definition
-├── launch_server.py             # Local model server launcher
-└── README.md
+└── environment.yml              # Conda environment definition
 ```
+
 
 See the [codebase guide](docs/codebase-guide.md) for the runtime flow, module
 responsibilities, workload schema, scheduler behavior, and output definitions.

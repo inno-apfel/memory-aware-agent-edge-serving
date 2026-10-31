@@ -12,14 +12,13 @@ import json
 import time
 from concurrent.futures import ThreadPoolExecutor
 from pathlib import Path
-from src.transport import send_request
+from src.client import send_request
 
 GENERATION_FIELDS = {
     "chat_template_kwargs",
     "reasoning_budget_tokens",
     "response_format",
 }
-
 
 def integer_answer(step, text):
     """Return an answer as text in the format declared by ``step``.
@@ -60,7 +59,7 @@ def validate(step, text):
     )
 
 
-def run_tasks(tasks, concurrency, output, url=None, timeout=30, sender=send_request):
+def run_tasks(tasks, concurrency, output, url, timeout=30, sender=send_request):
     """Run tasks and return ``(task_rows, elapsed_seconds)``.
 
     ``tasks`` is a sequence of mappings with unique ``task_id``, ``task_type``,
@@ -186,7 +185,7 @@ def run_tasks(tasks, concurrency, output, url=None, timeout=30, sender=send_requ
         """Call the sender while converting unexpected exceptions to a status."""
         dispatch = time.perf_counter() - origin
         try:
-            result = sender(body, timeout=timeout, url=url)
+            result = sender(url, body, timeout=timeout)
         except Exception as exc:
             result = dict(status="error", error=repr(exc), response_text="")
         return dispatch, time.perf_counter() - origin, result

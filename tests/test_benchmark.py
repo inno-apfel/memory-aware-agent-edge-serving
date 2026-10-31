@@ -12,8 +12,8 @@ import tempfile
 import threading
 import time
 import unittest
-from src.agent_runner import run_tasks, validate
-from workloads.generate import generate
+from runner import run_tasks, validate
+from workload import generate
 
 
 def answer(messages):
