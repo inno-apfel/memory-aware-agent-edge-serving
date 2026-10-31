@@ -21,7 +21,7 @@ input artifact and its hash if generation parameters differ.
 
 ## Run flow
 
-1. `launch_server.py` reads `config.yml` and starts `llama serve` in the
+1. `src/server.py` reads `config.yml` and starts `llama serve` in the
    foreground. Leave it running in its own terminal.
 2. `workloads/generate.py` can write a seeded JSONL workload. The checked-in
    v2 file already contains one fixture.
@@ -39,7 +39,7 @@ input artifact and its hash if generation parameters differ.
 
 | File | Responsibility | Change here when… |
 | --- | --- | --- |
-| `launch_server.py` | Maps `config.yml` to the `llama serve` command. | The server command interface changes. |
+| `src/server.py` | Manages the configured `llama serve` process. | The server command interface or process lifecycle changes. |
 | `src/utils.py` | Loads YAML and discovers a local process by name. | Shared config loading or process discovery changes. |
 | `src/transport.py` | Sends streaming HTTP requests and parses SSE events. | Endpoint behavior, timeout handling, or response parsing changes. |
 | `src/agent_runner.py` | Validates task input, schedules ready steps, manages history/tools, and writes per-request logs. | Scheduling policy, task semantics, or task-level metrics change. |
