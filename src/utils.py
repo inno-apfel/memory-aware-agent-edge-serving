@@ -1,5 +1,6 @@
 """Shared project configuration and local server process discovery."""
 
+import math
 import psutil
 import yaml
 
@@ -41,3 +42,7 @@ def get_server_pid(name_hint="llama"):
             f"Expected one server, found {len(matches)}; use explicit PID"
         )
     return matches[0][0]
+
+def percentile(values, p):
+    """Return the nearest-rank percentile, or ``None`` for an empty sample."""
+    return sorted(values)[max(0, math.ceil(len(values) * p) - 1)] if values else None
