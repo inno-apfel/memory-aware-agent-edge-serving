@@ -3,6 +3,7 @@
 import math
 import psutil
 import yaml
+import json
 
 from pathlib import Path
 
@@ -46,3 +47,7 @@ def get_server_pid(name_hint="llama"):
 def percentile(values, p):
     """Return the nearest-rank percentile, or ``None`` for an empty sample."""
     return sorted(values)[max(0, math.ceil(len(values) * p) - 1)] if values else None
+
+def write_json(path, data, *, indent=2):
+    """Write one JSON artifact with consistent formatting."""
+    path.write_text(json.dumps(data, indent=indent), encoding="utf-8")

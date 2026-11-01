@@ -21,9 +21,9 @@ import time
 
 from src.runner import run_tasks
 from src.monitor import monitor_process
-from src.utils import load_config, percentile
+from src.utils import load_config, percentile, write_json
 
-# Parse and validate options before creating any output artifacts.
+
 def parse_args():
     """Parse CLI options and return them as an argparse.Namespace.
 
@@ -70,37 +70,41 @@ def parse_args():
     return args
 
 
-args = parse_args()
-# Freeze the exact input bytes in the run directory. The saved copy and
-# manifest hash make it possible to confirm that each K saw the same tasks.
-root = Path(args.output)
-root.mkdir(parents=True, exist_ok=False)
-content = Path(args.workload).read_bytes()
-(root / "workload.jsonl").write_bytes(content)
-tasks = [json.loads(line) for line in content.decode().splitlines() if line.strip()]
-server = load_config()["server"]
-url = args.url or f"http://{server['host']}:{server['port']}/v1/chat/completions"
-pid = args.pid
-# Capture repository and environment metadata once for this invocation.
-repo = Path(__file__).resolve().parents[1]
-git = ["git", "-c", f"safe.directory={repo.as_posix()}", "-C", str(repo)]
-commit = subprocess.check_output(git + ["rev-parse", "HEAD"], text=True).strip()
-dirty = bool(
-    subprocess.check_output(git + ["status", "--porcelain"], text=True).strip()
-)
-# Run concurrency settings sequentially so each gets its own logs and
-# memory-sampling window against the same loaded workload.
-summaries = []
-for k in args.concurrency:
-    out = root / f"k{k}"
-    out.mkdir()
+def write_json(path, data, *, indent=2):
+    # Writes JSON to the supplied artifact path.
+    path.write_text(json.dumps(data, indent=indent), encoding="utf-8")
+
+
+def prepare_output(args):
+    # Writes the frozen workload input to root/workload.jsonl.
+    root = Path(args.output)
+    root.mkdir(parents=True, exist_ok=False)
+    content = Path(args.workload).read_bytes()
+    (root / "workload.jsonl").write_bytes(content)
+    tasks = [json.loads(line) for line in content.decode().splitlines() if line.strip()]
+    return root, content, tasks
+
+
+def collect_repository_metadata():
+    """Capture the repository revision and working-tree state."""
+    repo = Path(__file__).resolve().parents[1]
+    git = ["git", "-c", f"safe.directory={repo.as_posix()}", "-C", str(repo)]
+    commit = subprocess.check_output(git + ["rev-parse", "HEAD"], text=True).strip()
+    dirty = bool(
+        subprocess.check_output(git + ["status", "--porcelain"], text=True).strip()
+    )
+    return repo, commit, dirty
+
+
+def create_manifest(args, out, k, content, url, repo, commit, dirty):
+    # Writes the run record to out/run_manifest.json.
     manifest = dict(
         run_id=out.name,
         mode="REAL_MODEL",
         workload_sha256=hashlib.sha256(content).hexdigest(),
         concurrency=k,
         url=url,
-        server_pid=pid,
+        server_pid=args.pid,
         git_commit=commit,
         dirty=dirty,
         source_sha256={
@@ -127,44 +131,26 @@ for k in args.concurrency:
             "token/context calibration",
         ],
     )
-    (out / "run_manifest.json").write_text(
-        json.dumps(manifest, indent=2), encoding="utf-8"
-    )
-    # Sample the server in parallel with task execution; stop and join the
-    # collector even if the scheduler exits with an exception.
-    stop = threading.Event()
-    samples = []
-    errors = []
+    write_json(out / "run_manifest.json", manifest)
+    return manifest
 
-    def collect():
-        """Collect server-tree samples until stopped or the PID disappears."""
-        try:
-            for sample in monitor_process(pid=pid, interval=0.02):
-                samples.append(dict(run_id=out.name, **sample))
-                if stop.is_set() or sample["rss"] == "DEAD":
-                    break
-        except Exception as exc:
-            errors.append(repr(exc))
 
-    thread = threading.Thread(target=collect, daemon=True)
-    thread.start()
-    try:
-        rows, wall = run_tasks(tasks, k, out, url=url, timeout=args.timeout)
-    finally:
-        stop.set()
-        thread.join()
-        if samples:
-            with (out / "memory.csv").open("w", newline="") as f:
-                writer = csv.DictWriter(f, fieldnames=list(samples[0]))
-                writer.writeheader()
-                writer.writerows(samples)
-        (out / "monitor_errors.json").write_text(json.dumps(errors))
-    # Summarize terminal task rows and sampled memory. Percentiles include
-    # successful tasks only, while status counts retain every failure.
+def write_monitor_artifacts(out, samples, errors):
+    # Writes samples to out/memory.csv and errors to out/monitor_errors.json.
+    if samples:
+        with (out / "memory.csv").open("w", newline="") as f:
+            writer = csv.DictWriter(f, fieldnames=list(samples[0]))
+            writer.writeheader()
+            writer.writerows(samples)
+    write_json(out / "monitor_errors.json", errors, indent=None)
+
+
+def create_summary(out, k, rows, wall, samples, errors, mode):
+    # Writes the calculated run summary to out/summary.json.
     successful = [r for r in rows if r["status"] == "completed"]
     lat = [r["latency_s"] for r in successful]
     summary = dict(
-        mode=manifest["mode"],
+        mode=mode,
         k=k,
         tasks=len(rows),
         completed=len(successful),
@@ -180,8 +166,61 @@ for k in args.concurrency:
         memory_samples=len(samples),
         monitor_errors=errors,
     )
-    (out / "summary.json").write_text(json.dumps(summary, indent=2))
-    summaries.append(summary)
-# Persist a root-level comparison after all requested K values complete.
-(root / "comparison.json").write_text(json.dumps(summaries, indent=2))
-print(json.dumps(summaries, indent=2))
+    write_json(out / "summary.json", summary)
+    return summary
+
+
+def run_one(args, root, content, tasks, url, repo, commit, dirty, k):
+    """Run one concurrency setting and write its artifacts."""
+    out = root / f"k{k}"
+    out.mkdir()
+    manifest = create_manifest(args, out, k, content, url, repo, commit, dirty)
+
+    # Sample the server in parallel with task execution; stop and join the
+    # collector even if the scheduler exits with an exception.
+    stop = threading.Event()
+    samples = []
+    errors = []
+
+    def collect():
+        """Collect server-tree samples until stopped or the PID disappears."""
+        try:
+            for sample in monitor_process(pid=args.pid, interval=0.02):
+                samples.append(dict(run_id=out.name, **sample))
+                if stop.is_set() or sample["rss"] == "DEAD":
+                    break
+        except Exception as exc:
+            errors.append(repr(exc))
+
+    thread = threading.Thread(target=collect, daemon=True)
+    thread.start()
+    try:
+        rows, wall = run_tasks(tasks, k, out, url=url, timeout=args.timeout)
+    finally:
+        stop.set()
+        thread.join()
+        write_monitor_artifacts(out, samples, errors)
+
+    # Percentiles include completed tasks only; status counts retain failures.
+    return create_summary(out, k, rows, wall, samples, errors, manifest["mode"])
+
+
+def main():
+    # Writes the combined summaries to root/comparison.json.
+    args = parse_args()
+    root, content, tasks = prepare_output(args)
+    server = load_config()["server"]
+    url = args.url or f"http://{server['host']}:{server['port']}/v1/chat/completions"
+    repo, commit, dirty = collect_repository_metadata()
+
+    # Run concurrency settings sequentially against the same loaded workload.
+    summaries = [
+        run_one(args, root, content, tasks, url, repo, commit, dirty, k)
+        for k in args.concurrency
+    ]
+    write_json(root / "comparison.json", summaries)
+    print(json.dumps(summaries, indent=2))
+
+
+if __name__ == "__main__":
+    main()

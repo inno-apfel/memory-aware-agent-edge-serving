@@ -20,6 +20,7 @@ GENERATION_FIELDS = {
     "response_format",
 }
 
+
 def integer_answer(step, text):
     """Return an answer as text in the format declared by ``step``.
 
@@ -59,6 +60,127 @@ def validate(step, text):
     )
 
 
+def _write_timeline(output, origin):
+    # Writes the scheduler clock origin to output/timeline.json.
+    (output / "timeline.json").write_text(
+        json.dumps(dict(origin_monotonic=origin, origin_wall=time.time()))
+    )
+
+
+def _emit_event(events, run_id, origin, kind, state, **extra):
+    # Writes one timestamped event to output/events.jsonl.
+    events.write(
+        json.dumps(
+            dict(
+                run_id=run_id,
+                event=kind,
+                task_id=state["task"]["task_id"],
+                step_id=state["step"],
+                t=time.perf_counter() - origin,
+                **extra,
+            )
+        )
+        + "\n"
+    )
+    events.flush()
+
+
+def _arrive(state, now, events, run_id, origin):
+    """Mark the task's first injection and record its scheduled arrival."""
+    state.update(arrived=True, injected=now)
+    _emit_event(
+        events,
+        run_id,
+        origin,
+        "arrival",
+        state,
+        scheduled=state["task"]["arrival_offset_s"],
+    )
+
+
+def _finish_task(state, status, rows, taskfile, events, run_id, origin):
+    # Writes the terminal row to tasks.jsonl and task_end to events.jsonl.
+    row = dict(
+        run_id=run_id,
+        task_id=state["task"]["task_id"],
+        task_type=state["task"]["task_type"],
+        status=status,
+        quality_pass=status == "completed",
+        arrival=state["task"]["arrival_offset_s"],
+        injected=state["injected"],
+        end=time.perf_counter() - origin,
+        queue_s=state["queue_s"],
+        tool_wait_s=state["tool_wait_s"],
+        steps_completed=state["steps_completed"],
+    )
+    row["latency_s"] = row["end"] - row["arrival"]
+    rows.append(row)
+    taskfile.write(json.dumps(row) + "\n")
+    taskfile.flush()
+    _emit_event(events, run_id, origin, "task_end", state, status=status)
+
+
+def _invoke(sender, url, body, timeout, origin):
+    """Call the sender and convert unexpected exceptions into error results."""
+    dispatch = time.perf_counter() - origin
+    try:
+        result = sender(url, body, timeout=timeout)
+    except Exception as exc:
+        result = dict(status="error", error=repr(exc), response_text="")
+    return dispatch, time.perf_counter() - origin, result
+
+
+def _write_request(
+    reqs, events, run_id, origin, state, ready_at, dispatch, end, body, result
+):
+    # Writes the completed request to output/requests.jsonl and events.jsonl.
+    reqs.write(
+        json.dumps(
+            dict(
+                run_id=run_id,
+                task_id=state["task"]["task_id"],
+                step_id=state["step"],
+                ready=ready_at,
+                dispatch=dispatch,
+                end=end,
+                queue_s=dispatch - ready_at,
+                body=body,
+                **result,
+            )
+        )
+        + "\n"
+    )
+    reqs.flush()
+    _emit_event(
+        events,
+        run_id,
+        origin,
+        "request_end",
+        state,
+        request_end=end,
+        status=result["status"],
+    )
+
+
+def _build_request_body(state, step):
+    """Build the model request for the task's current step."""
+    prompt = step["prompt"]
+    if "{tool_result}" in prompt:
+        prompt = prompt.replace("{tool_result}", str(state["tool_result"]))
+    body = dict(
+        messages=state["history"] + [dict(role="user", content=prompt)],
+        max_tokens=step["max_tokens"],
+        stream=True,
+        temperature=0,
+        seed=42,
+        cache_prompt=False,
+        stream_options={"include_usage": True},
+        chat_template_kwargs={"enable_thinking": False},
+    )
+    body.update(step.get("generation", {}))
+    return body
+
+
 def run_tasks(tasks, concurrency, output, url, timeout=30, sender=send_request):
     """Run tasks and return ``(task_rows, elapsed_seconds)``.
 
@@ -92,8 +214,7 @@ def run_tasks(tasks, concurrency, output, url, timeout=30, sender=send_request):
         ValueError: For invalid run parameters, duplicate IDs, malformed tasks,
             or unsupported generation parameters.
     """
-    # Reject invalid run-wide settings and malformed workload records early,
-    # before opening output files or starting worker threads.
+    # Validate Inputs
     if concurrency < 1 or timeout <= 0 or not tasks:
         raise ValueError("Invalid run parameters")
     if len({t["task_id"] for t in tasks}) != len(tasks):
@@ -106,6 +227,9 @@ def run_tasks(tasks, concurrency, output, url, timeout=30, sender=send_request):
                 raise ValueError("Invalid step")
             if set(s.get("generation", {})) - GENERATION_FIELDS:
                 raise ValueError("Unsupported generation parameters")
+
+
+    # Setup
     # Create the run clock, scheduler state, and append-only artifacts. The
     # timeline origin lets downstream analysis align scheduler and monitor data.
     output = Path(output)
@@ -116,32 +240,12 @@ def run_tasks(tasks, concurrency, output, url, timeout=30, sender=send_request):
     inflight = {}
     rows = []
     states = []
-    (output / "timeline.json").write_text(
-        json.dumps(dict(origin_monotonic=origin, origin_wall=time.time()))
-    )
+    _write_timeline(output, origin)
     events = (output / "events.jsonl").open("w", encoding="utf-8")
     reqs = (output / "requests.jsonl").open("w", encoding="utf-8")
     taskfile = (output / "tasks.jsonl").open("w", encoding="utf-8")
 
-    def emit(kind, st, **extra):
-        """Append one timestamped event row and flush it for crash visibility."""
-        events.write(
-            json.dumps(
-                dict(
-                    run_id=output.name,
-                    event=kind,
-                    task_id=st["task"]["task_id"],
-                    step_id=st["step"],
-                    t=time.perf_counter() - origin,
-                    **extra,
-                )
-            )
-            + "\n"
-        )
-        events.flush()
-
-    # Seed every task into the ready heap at its planned arrival time. The
-    # sequence number gives equal-time tasks a stable FIFO tie-breaker.
+    # Add all tasks to heap, FIFO queue will pull them based on arrival_offset_s
     for task in tasks:
         st = dict(
             task=task,
@@ -155,41 +259,7 @@ def run_tasks(tasks, concurrency, output, url, timeout=30, sender=send_request):
         states.append(st)
         heapq.heappush(ready, (task["arrival_offset_s"], next(seq), st))
 
-    def arrive(st, now):
-        """Mark first injection time and log the planned versus actual arrival."""
-        st.update(arrived=True, injected=now)
-        emit("arrival", st, scheduled=st["task"]["arrival_offset_s"])
-
-    def finish(st, status):
-        """Create the terminal task row once a chain succeeds or fails."""
-        row = dict(
-            run_id=output.name,
-            task_id=st["task"]["task_id"],
-            task_type=st["task"]["task_type"],
-            status=status,
-            quality_pass=status == "completed",
-            arrival=st["task"]["arrival_offset_s"],
-            injected=st["injected"],
-            end=time.perf_counter() - origin,
-            queue_s=st["queue_s"],
-            tool_wait_s=st["tool_wait_s"],
-            steps_completed=st["steps_completed"],
-        )
-        row["latency_s"] = row["end"] - row["arrival"]
-        rows.append(row)
-        taskfile.write(json.dumps(row) + "\n")
-        taskfile.flush()
-        emit("task_end", st, status=status)
-
-    def invoke(body):
-        """Call the sender while converting unexpected exceptions to a status."""
-        dispatch = time.perf_counter() - origin
-        try:
-            result = sender(url, body, timeout=timeout)
-        except Exception as exc:
-            result = dict(status="error", error=repr(exc), response_text="")
-        return dispatch, time.perf_counter() - origin, result
-
+    # Process all task/request states until workload is finished
     try:
         with ThreadPoolExecutor(max_workers=concurrency) as pool:
             while ready or inflight:
@@ -197,41 +267,50 @@ def run_tasks(tasks, concurrency, output, url, timeout=30, sender=send_request):
                 now = time.perf_counter() - origin
                 for st in states:
                     if not st["arrived"] and st["task"]["arrival_offset_s"] <= now:
-                        arrive(st, now)
+                        _arrive(st, now, events, output.name, origin)
 
-                # Reconcile completed HTTP calls before admitting new work.
-                # This updates task history and either ends the task or queues
-                # its next step after the local tool delay.
+
+                # Process Inflight Requests
                 for future in list(inflight):
                     if not future.done():
                         continue
                     st, ready_at, body = inflight.pop(future)
                     dispatch, end, result = future.result()
                     st["queue_s"] += dispatch - ready_at
-                    reqs.write(
-                        json.dumps(
-                            dict(
-                                run_id=output.name,
-                                task_id=st["task"]["task_id"],
-                                step_id=st["step"],
-                                ready=ready_at,
-                                dispatch=dispatch,
-                                end=end,
-                                queue_s=dispatch - ready_at,
-                                body=body,
-                                **result,
-                            )
-                        )
-                        + "\n"
+                    _write_request(
+                        reqs,
+                        events,
+                        output.name,
+                        origin,
+                        st,
+                        ready_at,
+                        dispatch,
+                        end,
+                        body,
+                        result,
                     )
-                    reqs.flush()
-                    emit("request_end", st, request_end=end, status=result["status"])
                     step = st["task"]["steps"][st["step"]]
                     if result["status"] != "ok":
-                        finish(st, result["status"])
+                        _finish_task(
+                            st,
+                            result["status"],
+                            rows,
+                            taskfile,
+                            events,
+                            output.name,
+                            origin,
+                        )
                         continue
                     if not validate(step, result["response_text"]):
-                        finish(st, "validation_failed")
+                        _finish_task(
+                            st,
+                            "validation_failed",
+                            rows,
+                            taskfile,
+                            events,
+                            output.name,
+                            origin,
+                        )
                         continue
                     st["steps_completed"] += 1
                     st["history"] = body["messages"] + [
@@ -239,7 +318,15 @@ def run_tasks(tasks, concurrency, output, url, timeout=30, sender=send_request):
                     ]
                     st["step"] += 1
                     if st["step"] == len(st["task"]["steps"]):
-                        finish(st, "completed")
+                        _finish_task(
+                            st,
+                            "completed",
+                            rows,
+                            taskfile,
+                            events,
+                            output.name,
+                            origin,
+                        )
                         continue
                     delay = step.get("tool_delay_s", 0)
                     tool_start = time.perf_counter() - origin
@@ -254,33 +341,38 @@ def run_tasks(tasks, concurrency, output, url, timeout=30, sender=send_request):
                             dict(role="user", content=f"Tool result: {value}")
                         )
                     next_ready = tool_start + delay
-                    emit("tool_wait", st, tool_start=tool_start, tool_end=next_ready)
+                    _emit_event(
+                        events,
+                        output.name,
+                        origin,
+                        "tool_wait",
+                        st,
+                        tool_start=tool_start, tool_end=next_ready,
+                    )
                     heapq.heappush(ready, (next_ready, next(seq), st))
 
-                # Fill free request slots from the earliest ready tasks. Tool
-                # waits share this heap but do not count against K while pending.
+                # Process Ready Requests if slots open up
                 now = time.perf_counter() - origin
                 while ready and ready[0][0] <= now and len(inflight) < concurrency:
                     ready_at, order, st = heapq.heappop(ready)
                     if not st["arrived"]:
-                        arrive(st, now)
-                    emit("admit", st, ready=ready_at, sequence=order)
-                    step = st["task"]["steps"][st["step"]]
-                    prompt = step["prompt"]
-                    if "{tool_result}" in prompt:
-                        prompt = prompt.replace("{tool_result}", str(st["tool_result"]))
-                    body = dict(
-                        messages=st["history"] + [dict(role="user", content=prompt)],
-                        max_tokens=step["max_tokens"],
-                        stream=True,
-                        temperature=0,
-                        seed=42,
-                        cache_prompt=False,
-                        stream_options={"include_usage": True},
-                        chat_template_kwargs={"enable_thinking": False},
+                        _arrive(st, now, events, output.name, origin)
+                    _emit_event(
+                        events,
+                        output.name,
+                        origin,
+                        "admit",
+                        st,
+                        ready=ready_at, sequence=order,
                     )
-                    body.update(step.get("generation", {}))
-                    inflight[pool.submit(invoke, body)] = (st, ready_at, body)
+                    step = st["task"]["steps"][st["step"]]
+                    body = _build_request_body(st, step)
+                    future = pool.submit(
+                        _invoke, sender, url, body, timeout, origin
+                    )
+                    inflight[future] = (st, ready_at, body)
+
+                # sleep and check everything again    
                 time.sleep(0.001)
     finally:
         # Always close logs, including when scheduling or the sender raises.
