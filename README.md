@@ -12,21 +12,17 @@ conda env create -f environment.yml
 conda activate 291
 ```
 
-### Start llama.cpp server
+### Install llama.cpp
 
 ```bash
 curl -LsSf https://llama.app/install.sh | sh
-python -m src.server
-# grab llama.cpp server process ID for later
-pgrep llama
 ```
 
 ### Run Benchmark
 
 ```bash
 python -m src.workload --seed 42 --count 16 --output workloads/tasks-v2.jsonl
-# replace SERVER_PID with found process ID
-python -m experiments.run_experiment --pid SERVER_PID --workload workloads/tasks-v2.jsonl --concurrency 1 2 4 --timeout 120 --output results/real-v2-new-run
+python -m experiments.run_experiment --workload workloads/tasks-v2.jsonl --concurrency 1 2 4 --timeout 120 --output results/real-v2-new-run
 ```
 
 ## Project structure

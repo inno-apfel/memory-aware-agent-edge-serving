@@ -10,9 +10,10 @@ from src.utils import load_config
 
 
 class LlamaServer:
-    """Start and stop the llama.cpp server configured in ``config.yml``."""
+    """Start and stop a llama.cpp server using its server configuration."""
 
-    def __init__(self):
+    def __init__(self, server_config):
+        self.server_config = server_config
         self.process = None
 
     def start(self):
@@ -20,7 +21,7 @@ class LlamaServer:
         if self.process is not None and self.process.poll() is None:
             raise RuntimeError("llama.cpp server is already running")
 
-        server = load_config()["server"]
+        server = self.server_config
         cmd = [
             "llama", "serve",
             "-hf", server["model"],
@@ -50,7 +51,8 @@ class LlamaServer:
 
 def main():
     """Keep the server in the foreground when run as a module."""
-    server = LlamaServer()
+    config = load_config()
+    server = LlamaServer(config["server"])
     process = server.start()
     try:
         return process.wait()
