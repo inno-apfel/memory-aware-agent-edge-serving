@@ -29,6 +29,8 @@ class LlamaServerTests(unittest.TestCase):
             [
                 "llama", "serve",
                 "-hf", "model-id",
+                "--device", "none",
+                "--gpu-layers", "0",
                 "--metrics",
                 "-np", "2",
                 "-c", "4096",

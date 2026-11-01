@@ -25,6 +25,8 @@ class LlamaServer:
         cmd = [
             "llama", "serve",
             "-hf", server["model"],
+            "--device", "none",
+            "--gpu-layers", "0",
             "--metrics",
             "-np", str(server["parallel_slots"]),
             "-c", str(server["context_size"]),
