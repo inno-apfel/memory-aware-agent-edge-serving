@@ -50,6 +50,13 @@ the next prompt. Long prose keeps the original 180-word minimum and END check.
 See [quality calibration](docs/quality-calibration.md) for the rationale and
 comparability limits. Use the same frozen file for every concurrency setting.
 
+### Bottleneck diagnostics
+
+Add `--diagnostics` to record per-core and server-thread CPU, Linux memory/CPU/I/O
+pressure, and whole-device GPU telemetry. See [monitoring scope and interpretation](docs/bottleneck-monitoring.md)
+before inferring saturation from CPU percentages or GPU activity. The frozen
+larger-load diagnostic suite is available as `python -m scripts.run_diagnostic_suite`.
+
 ## Layout
 
 - `workloads/generate.py`: seeded short, long-context, long-output, three-step tasks.

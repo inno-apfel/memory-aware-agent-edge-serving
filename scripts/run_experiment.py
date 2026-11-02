@@ -16,6 +16,7 @@ import threading
 import time
 from src.agent_runner import run_tasks
 from src.monitor import monitor_process
+from src.resource_monitor import ResourceMonitor
 from src.utils import load_config
 
 
@@ -30,6 +31,7 @@ def main(argv=None):
     parser.add_argument("--concurrency", type=int, nargs="+", default=[1, 2, 4])
     parser.add_argument("--mock", action="store_true")
     parser.add_argument("--url")
+    parser.add_argument("--diagnostics", action="store_true", help="Per-core/thread CPU, Linux PSI and GPU telemetry")
     parser.add_argument(
         "--pid", type=int, help="Local MODEL server PID, not client PID"
     )
@@ -151,9 +153,14 @@ def main(argv=None):
 
             thread = threading.Thread(target=collect, daemon=True)
             thread.start()
+            diagnostics = ResourceMonitor(pid, out) if a.diagnostics else None
+            if diagnostics:
+                diagnostics.start()
             try:
                 rows, wall = run_tasks(tasks, k, out, url=url, timeout=a.timeout)
             finally:
+                if diagnostics:
+                    diagnostics.close()
                 stop.set()
                 thread.join()
                 if samples:
