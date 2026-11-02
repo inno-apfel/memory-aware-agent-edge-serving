@@ -1,76 +1,72 @@
 # Memory-aware agent edge serving
 
-This branch implements Member B's workloads and request-level FIFO baseline.
-See [the implementation and run guide](docs/baseline.md) for definitions,
-artifact schemas, limits, and the deferred real-model integration checklist.
+**Research Question:** <br>
+On a memory-capped llama.cpp server, what limits completed agent work as concurrency, context size, and tool-delay idle time vary: decode bandwidth, KV capacity, or re-prefill after context loss?
 
-## Quick functional check
+# Quick start
 
-```powershell
-python -m venv .venv
-.\.venv\Scripts\python.exe -m pip install -r requirements-baseline.txt
-.\.venv\Scripts\python.exe -m workloads.generate --seed 42 --count 16
-.\.venv\Scripts\python.exe -m unittest discover -s tests -v
-.\.venv\Scripts\python.exe -m scripts.run_experiment --mock --output results/first-run
-```
-
-Use a new output directory on each run. The mock is a local HTTP fixture, not an
-LLM. Its throughput and process memory are functional validation data only.
-The script starts/stops the fixture and compares K=1,2,4 with the same workload.
-
-## Real model
-
-`config.yml` and `launch_server.py` retain the original server configuration.
-After Member A verifies the runtime command, model and resource limits:
+### Set up the conda environment
 
 ```bash
-python launch_server.py
-# In a separate terminal, replace SERVER_PID with the local server process ID.
-python -m scripts.run_experiment --pid SERVER_PID --output results/real-first
+conda env create -f environment.yml
+conda activate 291
 ```
 
-Real runs require a local server PID for memory sampling. Remote memory sampling
-and strict whole-task deadlines are not yet implemented. The HTTP timeout is an
-inactivity timeout. Token lengths and context capacity need real-runtime calibration.
-
-### Bounded thinking workload profile
-
-The original workload is retained as `v1`. For Qwen3.5-0.8B, use the separately
-versioned `v2` profile after verifying support for llama.cpp's
-`reasoning_budget_tokens` and JSON schema output:
+### Install llama.cpp
 
 ```bash
-python -m workloads.generate --profile v2 --seed 42 --count 16 --output workloads/tasks-v2.jsonl
-python -m scripts.run_experiment --pid SERVER_PID --workload workloads/tasks-v2.jsonl --concurrency 1 2 4 --timeout 120 --output results/real-v2-new-run
+curl -LsSf https://llama.app/install.sh | sh
 ```
 
-Arithmetic uses a 512-token thinking budget and an exact integer `answer` JSON
-field. Tool-copy steps turn thinking off and bind the actual tool output into
-the next prompt. Long prose keeps the original 180-word minimum and END check.
-See [quality calibration](docs/quality-calibration.md) for the rationale and
-comparability limits. Use the same frozen file for every concurrency setting.
+### Run Benchmark
+
+```bash
+python -m src.workload --seed 42 --count 16 --output workloads/tasks-v2.jsonl
+python -m experiments.run_experiment --workload workloads/tasks-v2.jsonl --concurrency 1 2 4 --timeout 120 --output results/real-v2-new-run
+```
+
+## Project structure
 
 ### Bottleneck diagnostics
 
-Add `--diagnostics` to record per-core and server-thread CPU, Linux memory/CPU/I/O
-pressure, and whole-device GPU telemetry. See [monitoring scope and interpretation](docs/bottleneck-monitoring.md)
-before inferring saturation from CPU percentages or GPU activity. The frozen
-larger-load diagnostic suite is available as `python -m scripts.run_diagnostic_suite`.
+Add `--diagnostics` to `python -m experiments.run_experiment` to save per-core
+and server-thread CPU, Linux PSI, and GPU telemetry alongside memory.csv.
+The managed server currently runs CPU-only. For GPU experiments, start a
+CUDA-enabled server separately and supply its local `--pid` and completion `--url`.
+See [monitoring and Nsight timeline analysis](docs/bottleneck-monitoring.md) for
+commands, artifact fields, sampling corrections, and interpretation limits.
+The larger frozen suite is `python -m scripts.run_diagnostic_suite --help`;
+offline CUDA timeline analysis is `python -m scripts.analyze_gpu_timeline --help`.
 
-## Layout
+```text
+memory-aware-agent-edge-serving/
+├── README.md                    # how to run everything
+├── docs/
+│   ├── codebase-guide.md        # Architecture and contributor guide
+│   └── quality-calibration.md   # Workload quality calibration
+├── src/
+│   ├── server.py                # start llama-server, cap memory, record the manifest
+│   ├── client.py                # send requests, log timings
+│   ├── workload.py              # generate tasks.jsonl from a seed
+│   ├── runner.py                # the agent loop + FIFO scheduler
+│   ├── monitor.py               # sample memory
+│   └── utils.py                 # Shared utilities
+├── experiments/
+│   └── run_experiment.py        # Benchmark runner and summary generation
+├── workloads/
+├── results/                     # Generated experiment outputs (git-ignored)
+├── tests/
+├── config.yml                   # Server configuration
+└── environment.yml              # Conda environment definition
+```
 
-- `workloads/generate.py`: seeded short, long-context, long-output, three-step tasks.
-- `workloads/tasks.jsonl`: frozen task fixture for the new runner.
-- `workloads/examples.jsonl`: legacy single-request payload examples.
-- `src/agent_runner.py`: ready-time FIFO, task histories, tools, validation and logs.
-- `src/transport.py`: streaming HTTP adapter and explicit failure records.
-- `src/send.py`: legacy `send_request` and `run_workload` compatibility API.
-- `src/monitor.py`: process-tree sampling with explicit PID support.
-- `scripts/run_experiment.py`: CLI, manifests, memory collection and summaries.
-- `scripts/mock_server.py`: deterministic local HTTP fixture.
-- `tests/test_baseline.py`: scheduler and HTTP regression tests.
-- `main.ipynb`: original exploratory notebook; not the reproducible experiment entry.
 
-Memory values are bytes. RSS is not GPU memory or KV occupancy. Stream chunks are
-not tokens; absent usage is null. All failures are retained. Results and virtual
-environments are ignored by Git and should be archived separately.
+See the [codebase guide](docs/codebase-guide.md) for the runtime flow, module
+responsibilities, workload schema, scheduler behavior, and output definitions.
+
+The benchmark runs against a local llama.cpp server and samples that server's
+process tree. Use the same frozen workload file for each concurrency setting.
+RSS is host memory; it does not measure GPU memory or KV cache occupancy. See
+[quality calibration](docs/quality-calibration.md) for workload design and
+comparison limits. Generated results are ignored by Git and should be archived
+separately.

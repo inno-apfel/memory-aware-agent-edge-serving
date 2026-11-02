@@ -4,13 +4,22 @@ Run the existing baseline with `--diagnostics` to add optional Linux per-core,
 server-thread, pressure and GPU samples:
 
 ```bash
-python -m scripts.run_experiment --pid SERVER_PID \
+python -m experiments.run_experiment --pid SERVER_PID \
   --workload workloads/tasks-v2.jsonl --concurrency 1 2 4 8 \
   --timeout 120 --diagnostics --output results/diagnostic-new
 ```
 
 Use a new output directory. This does not modify workload generation, admission,
 quality validation, or the existing memory.csv format. Sampling is optional.
+
+The current managed server (`src/server.py`) explicitly uses `--device none`
+and `--gpu-layers 0`. Keep that CPU-only baseline unchanged. For a GPU experiment,
+start a CUDA-enabled llama.cpp server separately, verify GPU offload in its startup
+log, then pass its local `--pid` and completion `--url` to the experiment command.
+The PID must identify that same server, not the client or a different endpoint.
+An external server is never stopped by the experiment runner. Without `--pid`,
+the existing per-K managed startup/shutdown behavior is retained. Merely collecting
+gpu.csv does not prove model GPU offload: these counters cover the whole device.
 
 | File | Scope and interpretation |
 | --- | --- |

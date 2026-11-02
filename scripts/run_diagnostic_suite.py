@@ -8,8 +8,8 @@ import time
 import psutil
 import requests
 
-from scripts.run_experiment import main as experiment
-from workloads.generate import generate
+from experiments.run_experiment import main as experiment
+from src.workload import generate
 
 
 def main():
@@ -26,8 +26,8 @@ def main():
         raise RuntimeError("PID is not llama-server")
     base = "http://127.0.0.1:9931"
     requests.get(base + "/health", timeout=10).raise_for_status()
-    tasks = generate(64, seed=20261031, interval=.02, profile="v2")
-    longer = generate(32, seed=20261031, interval=.02, profile="v2")
+    tasks = generate(64, seed=20261031, interval=.02)
+    longer = generate(32, seed=20261031, interval=.02)
     for task in longer:
         if task["task_type"] == "long_context":
             extra = "\n".join(f"Record {i}: value {100+i}." for i in range(100, 200))
@@ -45,7 +45,7 @@ def main():
                 generation="same frozen v2 config, no quality tuning or retries")
     (root / "suite-plan.json").write_text(json.dumps(plan, indent=2))
     # A complete 4-task warmup and telemetry smoke test, excluded from evaluation.
-    (root / "warmup.jsonl").write_text("".join(json.dumps(t)+"\n" for t in generate(4, 101, profile="v2")))
+    (root / "warmup.jsonl").write_text("".join(json.dumps(t)+"\n" for t in generate(4, 101)))
     stages = [("warmup", "warmup", [1]), ("mixed-r1", "mixed64", [1,2,4,8]),
               ("mixed-r2", "mixed64", [8,4,2,1]), ("context-r1", "context32", [1,8])]
     for name, workload, order in stages:
