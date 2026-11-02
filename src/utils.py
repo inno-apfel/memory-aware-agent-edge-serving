@@ -1,9 +1,9 @@
-# utils.py
+"""Shared project configuration and local server process discovery."""
 
-"""Shared configuration helpers for the ``src`` modules."""
-
+import math
 import psutil
 import yaml
+import json
 
 from pathlib import Path
 
@@ -24,8 +24,11 @@ def load_config(config_path: Path = CONFIG_PATH) -> dict:
 
 
 def get_server_pid(name_hint="llama"):
-    """Read and return the endpoint URL from a YAML configuration file.
-    Returns the PID of the first process whose name or command line contains the given hint.
+    """Find the sole non-Python process matching ``name_hint`` and return its PID.
+
+    This convenience discovery is ambiguous when multiple llama servers run;
+    callers should pass an explicit PID for reproducible measurements. Raises
+    ``RuntimeError`` unless exactly one candidate is found.
     """
     matches = []
     for p in psutil.process_iter(["pid", "name", "cmdline"]):
@@ -40,3 +43,11 @@ def get_server_pid(name_hint="llama"):
             f"Expected one server, found {len(matches)}; use explicit PID"
         )
     return matches[0][0]
+
+def percentile(values, p):
+    """Return the nearest-rank percentile, or ``None`` for an empty sample."""
+    return sorted(values)[max(0, math.ceil(len(values) * p) - 1)] if values else None
+
+def write_json(path, data, *, indent=2):
+    """Write one JSON artifact with consistent formatting."""
+    path.write_text(json.dumps(data, indent=indent), encoding="utf-8")

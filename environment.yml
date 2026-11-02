@@ -1,3 +1,6 @@
+# Conda environment for the benchmark and local analysis notebooks.
+# The benchmark runtime uses Python, psutil, PyYAML, and requests; the remaining
+# packages support interactive analysis and plotting.
 name: '291'
 channels:
   - https://repo.anaconda.com/pkgs/main
