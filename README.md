@@ -27,6 +27,17 @@ python -m experiments.run_experiment --workload workloads/tasks-v2.jsonl --concu
 
 ## Project structure
 
+### Bottleneck diagnostics
+
+Add `--diagnostics` to `python -m experiments.run_experiment` to save per-core
+and server-thread CPU, Linux PSI, and GPU telemetry alongside memory.csv.
+The managed server currently runs CPU-only. For GPU experiments, start a
+CUDA-enabled server separately and supply its local `--pid` and completion `--url`.
+See [monitoring and Nsight timeline analysis](docs/bottleneck-monitoring.md) for
+commands, artifact fields, sampling corrections, and interpretation limits.
+The larger frozen suite is `python -m scripts.run_diagnostic_suite --help`;
+offline CUDA timeline analysis is `python -m scripts.analyze_gpu_timeline --help`.
+
 ```text
 memory-aware-agent-edge-serving/
 ├── README.md                    # how to run everything

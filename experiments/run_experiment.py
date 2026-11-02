@@ -2,7 +2,8 @@
 
 Each requested K gets an independent output directory with a manifest, scheduler
 logs, process-tree memory samples, and summary. A configured local model server
-is started and stopped for each K. The root output directory must not already
+is started and stopped for each K unless --pid selects an existing local server.
+The root output directory must not already
 exist so a previous run cannot be overwritten.
 """
 
@@ -14,6 +15,7 @@ import importlib.metadata
 import json
 from pathlib import Path
 import platform
+import psutil
 import requests
 import subprocess
 import sys
@@ -22,13 +24,14 @@ import time
 
 from src.runner import run_tasks
 from src.monitor import monitor_process
+from src.resource_monitor import ResourceMonitor
 from src.server import LlamaServer
 from src.utils import load_config, percentile, write_json
 
 SERVER_START_TIMEOUT_S = 300
 
 
-def parse_args():
+def parse_args(argv=None):
     """Parse CLI options and return them as an argparse.Namespace.
 
     Returns:
@@ -47,19 +50,22 @@ def parse_args():
     parser.add_argument("--output", default="results/smoke")
     parser.add_argument("--concurrency", type=int, nargs="+", default=[1, 2, 4])
     parser.add_argument("--url")
+    parser.add_argument("--pid", type=int, help="Use an already running local model server; do not start or stop it")
+    parser.add_argument("--diagnostics", action="store_true", help="Per-core/thread CPU, Linux PSI and whole-device GPU telemetry")
     parser.add_argument(
         "--timeout",
         type=float,
         default=30,
         help="HTTP connect/read inactivity timeout, not task deadline",
     )
-    args = parser.parse_args()
+    args = parser.parse_args(argv)
 
     # validate args
     if (
         any(k < 1 for k in args.concurrency)
         or len(set(args.concurrency)) != len(args.concurrency)
         or args.timeout <= 0
+        or (args.pid is not None and args.pid <= 0)
     ):
         parser.error("Need distinct positive concurrency values and positive timeout")
     return args
@@ -93,6 +99,7 @@ def collect_repository_metadata():
 
 def create_manifest(args, out, k, content, url, repo, commit, dirty, pid, config):
     # Writes the run record to out/run_manifest.json.
+    process = psutil.Process(pid)
     manifest = dict(
         run_id=out.name,
         mode="REAL_MODEL",
@@ -100,16 +107,20 @@ def create_manifest(args, out, k, content, url, repo, commit, dirty, pid, config
         concurrency=k,
         url=url,
         server_pid=pid,
+        server_command=process.cmdline(),
+        server_process_created=process.create_time(),
         git_commit=commit,
         dirty=dirty,
         source_sha256={
             str(p.relative_to(repo)): hashlib.sha256(p.read_bytes()).hexdigest()
-            for folder in ["src", "scripts", "workloads"]
+            for folder in ["src", "scripts", "experiments", "workloads"]
             for p in (repo / folder).rglob("*.py")
         },
         python=sys.version,
         platform=platform.platform(),
         server_config=config,
+        server_management="external PID" if args.pid else "managed per concurrency",
+        diagnostics=args.diagnostics,
         dependencies={
             n: importlib.metadata.version(n)
             for n in ["requests", "psutil", "PyYAML"]
@@ -189,10 +200,15 @@ def run_one(args, root, content, tasks, url, repo, commit, dirty, config, k):
     """Run one concurrency setting and write its artifacts."""
     out = root / f"k{k}"
     out.mkdir()
-    server = LlamaServer(config["server"])
-    process = server.start()
+    server = None if args.pid else LlamaServer(config["server"])
+    process = psutil.Process(args.pid) if args.pid else server.start()
     try:
-        wait_for_server(process, config["server"])
+        if server:
+            wait_for_server(process, config["server"])
+        else:
+            # The supplied PID and endpoint must refer to the same local server.
+            health_url = url.split("/v1/", 1)[0] + "/health"
+            requests.get(health_url, timeout=10).raise_for_status()
         manifest = create_manifest(
             args, out, k, content, url, repo, commit, dirty, process.pid, config
         )
@@ -215,9 +231,14 @@ def run_one(args, root, content, tasks, url, repo, commit, dirty, config, k):
 
         thread = threading.Thread(target=collect, daemon=True)
         thread.start()
+        diagnostics = ResourceMonitor(process.pid, out) if args.diagnostics else None
         try:
+            if diagnostics:
+                diagnostics.start()
             rows, wall = run_tasks(tasks, k, out, url=url, timeout=args.timeout)
         finally:
+            if diagnostics:
+                diagnostics.close()
             stop.set()
             thread.join()
             write_monitor_artifacts(out, samples, errors)
@@ -225,12 +246,13 @@ def run_one(args, root, content, tasks, url, repo, commit, dirty, config, k):
         # Percentiles include completed tasks only; status counts retain failures.
         return create_summary(out, k, rows, wall, samples, errors, manifest["mode"])
     finally:
-        server.stop()
+        if server:
+            server.stop()
 
 
-def main():
+def main(argv=None):
     # Writes the combined summaries to root/comparison.json.
-    args = parse_args()
+    args = parse_args(argv)
     root, content, tasks = prepare_output(args)
     config = load_config()
     server_config = config["server"]

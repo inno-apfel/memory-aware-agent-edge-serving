@@ -12,8 +12,8 @@ import tempfile
 import threading
 import time
 import unittest
-from runner import run_tasks, validate
-from workload import generate
+from src.runner import run_tasks, validate
+from src.workload import generate
 
 
 def answer(messages):
@@ -56,7 +56,7 @@ class BenchmarkTests(unittest.TestCase):
         tasks = generate(4, seed=101)
         calls = []
 
-        def sender(body, **kw):
+        def sender(url, body, **kw):
             calls.append(body)
             text = answer(body["messages"])
             if body.get("response_format"):
@@ -81,7 +81,7 @@ class BenchmarkTests(unittest.TestCase):
             return dict(status="ok", response_text=text)
 
         with tempfile.TemporaryDirectory() as tmp:
-            rows, _ = run_tasks(tasks, 2, tmp, sender=sender)
+            rows, _ = run_tasks(tasks, 2, tmp, url="http://fixture.invalid/v1/chat/completions", sender=sender)
             self.assertTrue(all(r["status"] == "completed" for r in rows))
             chain = next(r for r in rows if r["task_type"] == "three_step")
             self.assertEqual(chain["steps_completed"], 3)
@@ -108,13 +108,15 @@ class BenchmarkTests(unittest.TestCase):
         active = 0
         peak = 0
 
-        def sender(body, **kw):
+        def sender(url, body, **kw):
             nonlocal active, peak
             with lock:
                 active += 1
                 peak = max(peak, active)
             time.sleep(0.01)
             text = answer(body["messages"])
+            if body.get("response_format"):
+                text = json.dumps({"answer": int(text)})
             with lock:
                 active -= 1
             return dict(status="ok", response_text=text)
@@ -122,7 +124,7 @@ class BenchmarkTests(unittest.TestCase):
         for k in [1, 2, 4]:
             with tempfile.TemporaryDirectory() as tmp:
                 peak = 0
-                rows, _ = run_tasks(tasks, k, tmp, sender=sender)
+                rows, _ = run_tasks(tasks, k, tmp, url="http://fixture.invalid/v1/chat/completions", sender=sender)
                 self.assertEqual([r["status"] for r in rows], ["completed"] * 8)
                 self.assertLessEqual(peak, k)
                 events = [
@@ -156,11 +158,11 @@ class BenchmarkTests(unittest.TestCase):
         """Check failed requests terminate chains and release scheduler capacity."""
         tasks = generate(count=4, interval=0)
 
-        def sender(body, **kw):
+        def sender(url, body, **kw):
             return dict(status="timeout", response_text="")
 
         with tempfile.TemporaryDirectory() as tmp:
-            rows, _ = run_tasks(tasks, 1, tmp, sender=sender)
+            rows, _ = run_tasks(tasks, 1, tmp, url="http://fixture.invalid/v1/chat/completions", sender=sender)
             self.assertEqual(len(rows), 4)
             self.assertTrue(
                 all(
