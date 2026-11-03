@@ -94,6 +94,34 @@ experimental source snapshot, before this packaging-only import isolation.
 
 ## Checks
 
+## November 3 measured results
+
+The completed matrix used Qwen2.5-Coder-3B-Instruct Q4_K_M, CPU-only,
+`--load-mode none`, zero service swap, K=2 and the same 32-task input. Each
+budget was repeated three times with a fresh service and separate warmup.
+
+| Budget (MiB) | Quality-passing tasks | Trials with OOM | Mean per-run TTFT P95 (s) |
+| --- | --- | --- | --- |
+| 6144 | 96/96 | 0/3 | 7.65 |
+| 3840 | 96/96 | 0/3 | 7.68 |
+| 3750 | 96/96 | 0/3 | 7.57 |
+| 3712 | 0/96 | 3/3 | unavailable |
+
+The nine complete runs each generated 3937 tokens. All three 3712-MiB trials
+started and completed warmup, then failed with OOM during measured requests.
+Missing TTFT is not zero; their short failure-drain time is not a performance
+gain. At 3750 MiB, measured memory PSI averaged approximately 0.00015%, despite
+some limit/reclaim events. The evidence supports a workload-feasibility boundary,
+not a substantial smooth TTFT degradation above it. Three repeats are descriptive.
+
+This is a K=2 result for the specified loading mode, model and memory policy.
+It does not establish whether K=1 or admission control could avoid the lower
+budget's runtime peak, and does not measure GPU memory constraints or KV eviction.
+Full raw logs, the original experimental source snapshot and the report are
+distributed separately in the November 3 handoff archive, not committed here.
+
+## Validation commands
+
 ```bash
 python -m unittest discover -s tests -v
 # Explicit Linux/root integration test: a disposable 64MiB child allocates 256MiB.

@@ -38,7 +38,7 @@ def main():
     p.add_argument('--seed', type=int, default=20261103)
     a = p.parse_args()
     a.output.parent.mkdir(parents=True, exist_ok=True)
-    with a.output.open('x', encoding='utf-8') as f:
+    with a.output.open('x', encoding='utf-8', newline='\n') as f:
         for task in generate_memory_tasks(a.count, a.seed):
             f.write(json.dumps(task) + '\n')
 

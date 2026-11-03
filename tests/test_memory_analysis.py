@@ -1,4 +1,5 @@
 import json
+import hashlib
 from pathlib import Path
 import tempfile
 import unittest
@@ -7,6 +8,16 @@ from workloads.memory_budget import generate_memory_tasks
 
 
 class MemoryAnalysisTests(unittest.TestCase):
+    def test_frozen_measured_and_warmup_inputs_match_original_experiment(self):
+        def digest(tasks):
+            return hashlib.sha256(''.join(json.dumps(t)+'\n' for t in tasks).encode()).hexdigest()
+        expected = '78abb94470ab122c202ae33671dc70cd5ef2b8c89ec97afb8b9a29f64815da7d'
+        self.assertEqual(digest(generate_memory_tasks()), expected)
+        fixture = Path(__file__).resolve().parents[1] / 'workloads/memory-budget-cpu-v1.jsonl'
+        self.assertEqual(hashlib.sha256(fixture.read_bytes()).hexdigest(), expected)
+        self.assertEqual(digest(generate_memory_tasks(4, 101)),
+                         'a516d6fbf35c8f31875fee7f62e25ae1a45fc9f4fa30d84093a813cd9dc3b797')
+
     def test_profile_is_deterministic_and_preserves_quality_threshold(self):
         self.assertEqual(generate_memory_tasks(), generate_memory_tasks())
         tasks = generate_memory_tasks()
