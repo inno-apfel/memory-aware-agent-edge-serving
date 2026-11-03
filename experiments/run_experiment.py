@@ -25,8 +25,8 @@ import time
 from src.runner import run_tasks
 from src.monitor import monitor_process
 from src.resource_monitor import ResourceMonitor
-from src.server import LlamaServer
-from src.utils import load_config, percentile, write_json
+from src.server import LlamaServer, load_launch_config
+from src.utils import CONFIG_PATH, percentile, write_json
 
 SERVER_START_TIMEOUT_S = 300
 
@@ -50,6 +50,9 @@ def parse_args(argv=None):
     parser.add_argument("--output", default="results/smoke")
     parser.add_argument("--concurrency", type=int, nargs="+", default=[1, 2, 4])
     parser.add_argument("--url")
+    parser.add_argument('--config', type=Path, default=CONFIG_PATH)
+    parser.add_argument('--binary', help='Override configured command with local llama-server')
+    parser.add_argument('--library-path', help='Linux LD_LIBRARY_PATH for model server')
     parser.add_argument("--pid", type=int, help="Use an already running local model server; do not start or stop it")
     parser.add_argument("--diagnostics", action="store_true", help="Per-core/thread CPU, Linux PSI and whole-device GPU telemetry")
     parser.add_argument(
@@ -254,7 +257,7 @@ def main(argv=None):
     # Writes the combined summaries to root/comparison.json.
     args = parse_args(argv)
     root, content, tasks = prepare_output(args)
-    config = load_config()
+    config = load_launch_config(args.config, args.binary, args.library_path)
     server_config = config["server"]
     url = args.url or (
         f"http://{server_config['host']}:{server_config['port']}"

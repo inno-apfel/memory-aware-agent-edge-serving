@@ -12,8 +12,9 @@ python -m experiments.run_experiment --pid SERVER_PID \
 Use a new output directory. This does not modify workload generation, admission,
 quality validation, or the existing memory.csv format. Sampling is optional.
 
-The current managed server (`src/server.py`) explicitly uses `--device none`
-and `--gpu-layers 0`. Keep that CPU-only baseline unchanged. For a GPU experiment,
+The default managed `config.yml` uses `--device none` and `--gpu-layers 0`.
+For managed GPU startup, use `--config phase1-gpu.yml`; see the
+[pinned runtime and startup guide](phase1-gpu.md). Alternatively,
 start a CUDA-enabled llama.cpp server separately, verify GPU offload in its startup
 log, then pass its local `--pid` and completion `--url` to the experiment command.
 The PID must identify that same server, not the client or a different endpoint.

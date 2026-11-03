@@ -1,0 +1,32 @@
+# Frozen profile for the Oct 28-31 / Nov 1 GPU experiments, not CPU memory sweeps.
+# Run in Linux/WSL2 with the pinned CUDA runtime, from the repository root.
+runtime:
+  name: llama.cpp
+  version: 0.8.0-dev
+  build: 11960
+  commit: 8642541b2
+  cuda: '12.8'
+  expected_version_text: ['0.8.0-dev', 'build 11960', '8642541b2']
+  binary_release: https://github.com/ggml-org/llama.cpp/releases/tag/b11960
+  model_repository: ggml-org/Qwen3.5-0.8B-GGUF
+  model_revision: 807dfd9a6fadbf703207aac3bfb0b2b3040d077c
+  reference_hardware: NVIDIA GeForce RTX 5060 Laptop GPU, 8151 MiB VRAM, WSL2
+server:
+  command: ['llama-server']   # On PATH; or supply --binary /path/to/llama-server.
+  model_file: models/Qwen3.5-0.8B-Q8_0.gguf  # Relative to this YAML's directory.
+  model_sha256: 37ae482d336108d23516fa35e8e0c4126688d81018b87178a18d752a1357814f
+  host: 127.0.0.1
+  port: 9931
+  device: null              # Let CUDA runtime select GPU; do not pass --device none.
+  gpu_layers: all           # Equivalent to the original -ngl all.
+  metrics: true
+  parallel_slots: 10
+  context_size: 40960       # 4096 tokens per slot; K is a separate client setting.
+  flash_attn: 'on'          # Quote: YAML 1.1 otherwise treats on as a boolean.
+  threads: 8
+  threads_batch: 8
+  cache_ram: 0
+  cache_idle_slots: false
+  context_shift: false
+  kv_unified: false
+  environment_unset: [GGML_CUDA_DISABLE_GRAPHS] # Original default Graph path.

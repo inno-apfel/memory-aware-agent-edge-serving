@@ -24,6 +24,11 @@ curl -LsSf https://llama.app/install.sh | sh
 
 ### Run Benchmark
 
+To reproduce the earlier Qwen3.5-0.8B GPU service, use
+`python -m src.server --config phase1-gpu.yml` or pass `--config phase1-gpu.yml`
+to the benchmark runner. See [the pinned runtime and startup guide](docs/phase1-gpu.md)
+for binary/library paths, model checksum, and workload selection.
+
 ```bash
 python -m src.workload --seed 42 --count 16 --output workloads/tasks-v2.jsonl
 python -m experiments.run_experiment --workload workloads/tasks-v2.jsonl --concurrency 1 2 4 --timeout 120 --output results/real-v2-new-run
@@ -39,8 +44,9 @@ budget matrix, and TTFT/quality aggregation without changing the default server.
 
 Add `--diagnostics` to `python -m experiments.run_experiment` to save per-core
 and server-thread CPU, Linux PSI, and GPU telemetry alongside memory.csv.
-The managed server currently runs CPU-only. For GPU experiments, start a
-CUDA-enabled server separately and supply its local `--pid` and completion `--url`.
+The default `config.yml` runs CPU-only. For managed GPU experiments use
+`--config phase1-gpu.yml` with the pinned runtime, or start a CUDA server
+separately and supply its local `--pid` and completion `--url`.
 See [monitoring and Nsight timeline analysis](docs/bottleneck-monitoring.md) for
 commands, artifact fields, sampling corrections, and interpretation limits.
 The larger frozen suite is `python -m scripts.run_diagnostic_suite --help`;
