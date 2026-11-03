@@ -27,6 +27,10 @@ python -m experiments.run_experiment --workload workloads/tasks-v2.jsonl --concu
 
 ## Project structure
 
+For controlled CPU DRAM limits, see [the memory-budget experiment](docs/memory-budget-experiment.md).
+It adds a pre-exec cgroup limit, startup/OOM evidence, a frozen workload, a shuffled
+budget matrix, and TTFT/quality aggregation without changing the default server.
+
 ### Bottleneck diagnostics
 
 Add `--diagnostics` to `python -m experiments.run_experiment` to save per-core
