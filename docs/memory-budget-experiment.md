@@ -92,8 +92,6 @@ The checked-in `workloads/memory-budget-cpu-v1.jsonl` is the canonical 32-task
 input; regeneration is hash-tested. Raw data/report archives retain the original
 experimental source snapshot, before this packaging-only import isolation.
 
-## Checks
-
 ## November 3 measured results
 
 The completed matrix used Qwen2.5-Coder-3B-Instruct Q4_K_M, CPU-only,
