@@ -1,0 +1,15 @@
+{
+  "start_command": [
+    "/mnt/c/Users/16854/Documents/Codex/2026-10-25/https-github-com-inno-apfel-memory/work/nsight/extracted/opt/nvidia/nsight-systems-cli/2026.5.1/target-linux-x64/nsys",
+    "start",
+    "--session=btimeline_graph",
+    "--sample=none",
+    "--cpuctxsw=none",
+    "--output=/tmp/btimeline-suite-20261101/graph-k2",
+    "--export=sqlite"
+  ],
+  "start_return_wall": 1793562017.528095,
+  "stop_return_wall": 1793562108.5862892,
+  "mode": "graph",
+  "k": 2
+}

@@ -1,0 +1,34 @@
+[
+  {
+    "mode": "REAL_MODEL",
+    "k": 1,
+    "tasks": 32,
+    "completed": 32,
+    "statuses": {
+      "completed": 32
+    },
+    "drain_s": 61.84050357000001,
+    "completed_tasks_per_s": 0.5174602105847631,
+    "p50_s": 38.767671992000125,
+    "p95_s": 61.15751994100011,
+    "peak_rss_bytes": 1651355648,
+    "memory_samples": 2457,
+    "monitor_errors": []
+  },
+  {
+    "mode": "REAL_MODEL",
+    "k": 8,
+    "tasks": 32,
+    "completed": 32,
+    "statuses": {
+      "completed": 32
+    },
+    "drain_s": 50.72798990599995,
+    "completed_tasks_per_s": 0.6308154543339226,
+    "p50_s": 36.41886376300013,
+    "p95_s": 50.13582498799991,
+    "peak_rss_bytes": 1651372032,
+    "memory_samples": 1989,
+    "monitor_errors": []
+  }
+]

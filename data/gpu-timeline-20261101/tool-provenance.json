@@ -1,0 +1,6 @@
+{
+  "url": "https://developer.nvidia.com/downloads/assets/tools/secure/nsight-systems/2026_5/nsightsystems-linux-cli-public-2026.5.1.161-3889610.deb",
+  "sha256": "61829db6392e5c293ada1319df86a97c3356bc810335a1975cb551fcfe3eca08",
+  "operation": "extracted into project directory; no GPU driver installation",
+  "version": "2026.5.1.161"
+}

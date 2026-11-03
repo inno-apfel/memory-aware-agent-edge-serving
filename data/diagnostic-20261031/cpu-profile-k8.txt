@@ -1,0 +1,37 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 616  of event 'cpu-clock:u'
+# Event count (approx.): 12571428408
+#
+# Overhead  Command       Shared Object             Symbol                
+# ........  ............  ........................  ......................
+#
+    42.53%  llama-server  libcuda.so.1.1            [.] 0x00000000005921ea
+     3.73%  llama-server  libcuda.so.1.1            [.] 0x00000000010860d0
+     3.73%  llama-server  libllama-common.so.0.8.0  [.] 0x000000000033e756
+     2.11%  llama-server  libcuda.so.1.1            [.] 0x00000000010860e0
+     1.95%  llama-server  libllama-common.so.0.8.0  [.] 0x000000000033e76c
+     1.62%  llama-server  libllama.so.0.8.0         [.] 0x00000000003675d7
+     1.46%  llama-server  libcuda.so.1.1            [.] 0x0000000000247fed
+     1.14%  llama-server  libc.so.6                 [.] 0x00000000000a7a3b
+     0.97%  llama-server  libcuda.so.1.1            [.] 0x00000000005921ed
+     0.97%  llama-server  libggml-cuda.so           [.] 0x0000000000301311
+     0.97%  llama-server  libllama.so.0.8.0         [.] 0x00000000003675d1
+     0.81%  llama-server  libc.so.6                 [.] 0x00000000000a933c
+     0.81%  llama-server  libc.so.6                 [.] 0x0000000000132c3d
+     0.81%  llama-server  libllama-common.so.0.8.0  [.] 0x000000000033e758
+     0.81%  llama-server  libllama-common.so.0.8.0  [.] 0x000000000033e767
+     0.65%  llama-server  libcuda.so.1.1            [.] 0x00000000001ea110
+     0.65%  llama-server  libcuda.so.1.1            [.] 0x00000000003036e0
+     0.65%  llama-server  libcuda.so.1.1            [.] 0x000000000054eb4e
+     0.65%  llama-server  libcuda.so.1.1            [.] 0x00000000010860d8
+     0.65%  llama-server  libllama.so.0.8.0         [.] 0x00000000003675c8
+     0.65%  llama-server  libllama.so.0.8.0         [.] 0x00000000003675db
+
+
+#
+# (Cannot load tips.txt file, please install perf!)
+#

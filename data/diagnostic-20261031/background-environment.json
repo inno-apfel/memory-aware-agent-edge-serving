@@ -1,0 +1,7 @@
+{
+  "background_graphical_app_started_wall": 1793507995.25673,
+  "observed_working_set_bytes": 2614525952,
+  "game_absent_verified_wall": 1793508313.838,
+  "available_mib_after_exit": 3815,
+  "meaning": "A competing graphical application was observed; not a controlled RAM-only intervention. Full unrelated process inventory excluded from shared archive."
+}

@@ -1,0 +1,9 @@
+default-k1-warmup {'k': 1, 'start_wall': 1793562637.51588, 'end_wall': 1793562645.4637125, 'drain_s': 7.943611736000001, 'tasks': 4, 'passed': 4, 'requests': 6, 'request_ok': 6, 'output_tokens': 1702}
+default-k1 {'k': 1, 'start_wall': 1793562645.4702084, 'end_wall': 1793562675.9861434, 'drain_s': 30.499664418000002, 'tasks': 16, 'passed': 16, 'requests': 24, 'request_ok': 24, 'output_tokens': 6795}
+default-k2-warmup {'k': 2, 'start_wall': 1793562676.0404024, 'end_wall': 1793562682.7778542, 'drain_s': 6.725702709000004, 'tasks': 4, 'passed': 4, 'requests': 6, 'request_ok': 6, 'output_tokens': 1715}
+default-k2 {'k': 2, 'start_wall': 1793562682.7810433, 'end_wall': 1793562727.0901299, 'drain_s': 44.30394432200001, 'tasks': 16, 'passed': 16, 'requests': 24, 'request_ok': 24, 'output_tokens': 6530}
+disabled-k1-warmup {'k': 1, 'start_wall': 1793562741.6969802, 'end_wall': 1793562754.1904714, 'drain_s': 12.48535090499999, 'tasks': 4, 'passed': 4, 'requests': 6, 'request_ok': 6, 'output_tokens': 1702}
+disabled-k1 {'k': 1, 'start_wall': 1793562754.1964517, 'end_wall': 1793562802.9708512, 'drain_s': 48.769325431, 'tasks': 16, 'passed': 16, 'requests': 24, 'request_ok': 24, 'output_tokens': 6795}
+disabled-k2-warmup {'k': 2, 'start_wall': 1793562802.9745693, 'end_wall': 1793562812.799513, 'drain_s': 9.821017127000005, 'tasks': 4, 'passed': 4, 'requests': 6, 'request_ok': 6, 'output_tokens': 1711}
+disabled-k2 {'k': 2, 'start_wall': 1793562812.8034668, 'end_wall': 1793562857.9013815, 'drain_s': 45.090653938, 'tasks': 16, 'passed': 16, 'requests': 24, 'request_ok': 24, 'output_tokens': 6465}
+INTERVENTION_FINISHED

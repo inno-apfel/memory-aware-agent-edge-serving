@@ -1,0 +1,17 @@
+{
+  "mode": "REAL_MODEL",
+  "k": 8,
+  "tasks": 64,
+  "completed": 63,
+  "statuses": {
+    "completed": 63,
+    "validation_failed": 1
+  },
+  "drain_s": 86.68398830299998,
+  "completed_tasks_per_s": 0.7267778194490352,
+  "p50_s": 56.739978322999995,
+  "p95_s": 81.77184472199998,
+  "peak_rss_bytes": 1691291648,
+  "memory_samples": 3464,
+  "monitor_errors": []
+}

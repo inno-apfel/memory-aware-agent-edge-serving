@@ -1,0 +1,123 @@
+[
+  {
+    "run": "clean-r1/k1",
+    "task_id": "task-0057",
+    "task_type": "long_context",
+    "status": "validation_failed",
+    "step_id": 0,
+    "expected": "104",
+    "response": "{\n  \"answer\": 105\n}",
+    "finish_reason": "stop",
+    "http_status": "ok"
+  },
+  {
+    "run": "clean-r1/k2",
+    "task_id": "task-0057",
+    "task_type": "long_context",
+    "status": "validation_failed",
+    "step_id": 0,
+    "expected": "104",
+    "response": "{\n  \"answer\": 105\n}",
+    "finish_reason": "stop",
+    "http_status": "ok"
+  },
+  {
+    "run": "clean-r1/k8",
+    "task_id": "task-0042",
+    "task_type": "long_output",
+    "status": "validation_failed",
+    "step_id": 0,
+    "expected": null,
+    "response": "FIFO scheduling is a first-in-first-out algorithm that processes jobs based on their arrival order. It ensures that the oldest job in the queue is executed immediately, guaranteeing fair treatment for all arriving processes regardless of their relative timing. This simple rule creates a predictable and stable system where the earliest entry is always served first.\n\nThe core operation involves maintaining a queue where the head of the line holds the most recent job. When a process arrives, it is added to the front of this queue, and the oldest job is removed and executed next. This structure prevents any process from waiting indefinitely for a slot that is already occupied by a newer job.\n\nA practical example involves a server managing a batch of incoming web requests. If a new client connects at 10:00 AM, the system immediately serves that request before processing requests from 10:01 AM. This ensures that the most active user gets attention first, even if their request arrives later in the day.\n\nThe primary advantage of FIFO is its simplicity and fairness. It treats all processes equally by prioritizing those who arrived earliest, preventing any single process from dominating the system. This makes it ideal for real-time applications where consistent response times are critical.\n\nHead-of-line blocking occurs when a process waiting in the queue is blocked by a newer job that has already been served. This can cause delays for the waiting process, especially if the queue is long or the system is under load. However, this limitation is often acceptable in many real-world scenarios where responsiveness is more important than strict fairness.\n\nCompared to other policies like Round Robin, FIFO provides better performance for time-sensitive tasks. Round Robin processes jobs sequentially but may not handle long queues efficiently. FIFO eliminates the overhead of maintaining a rotating list, making it faster for large batches of requests.\n\nIn summary, FIFO scheduling offers a robust foundation for scheduling systems by ensuring fair treatment and predictable execution. While it has limitations regarding blocking, its simplicity and efficiency make it a widely used choice in computer science and operating systems.",
+    "finish_reason": "stop",
+    "http_status": "ok"
+  },
+  {
+    "run": "mixed-r1/k1",
+    "task_id": "task-0057",
+    "task_type": "long_context",
+    "status": "validation_failed",
+    "step_id": 0,
+    "expected": "104",
+    "response": "{\n  \"answer\": 105\n}",
+    "finish_reason": "stop",
+    "http_status": "ok"
+  },
+  {
+    "run": "mixed-r1/k2",
+    "task_id": "task-0022",
+    "task_type": "long_output",
+    "status": "validation_failed",
+    "step_id": 0,
+    "expected": null,
+    "response": "FIFO scheduling is a first-in-first-out algorithm that processes jobs based on their arrival order. It ensures that the oldest job in the queue is executed immediately, guaranteeing fair treatment for all arriving processes regardless of their relative timing. This simple rule creates a predictable and stable system where the earliest entry is always served first.\n\nThe core operation involves maintaining a queue where the head of the line holds the most recent job. When a process arrives, it is added to the front of this queue, and the oldest job is removed and executed next. This structure prevents any process from waiting indefinitely for a slot, ensuring that the system remains efficient and responsive.\n\nA practical example involves a server managing a batch of incoming web requests. If a new client connects at 10:00 AM, the system immediately serves that request before processing requests from 10:01 AM. This behavior is crucial for maintaining high throughput and minimizing idle time for the server.\n\nThe primary advantage of FIFO is its simplicity and fairness. Unlike priority-based systems, it treats all jobs equally, ensuring that no single process dominates the system. This makes it ideal for resource-constrained environments where performance depends on order rather than priority.\n\nHead-of-line blocking occurs when a process waits for a slot that is occupied by a later-arriving process. This can cause delays for the first process if the queue is long, though it is generally acceptable for short queues. The blocking nature is inherent to the algorithm and does not require special handling.\n\nCompared to other policies, FIFO is often preferred for its simplicity and lack of complexity. It is less likely to cause starvation or unfairness compared to priority queues. However, it may not be suitable for systems where processing speed is the primary concern. END alone on the final line.",
+    "finish_reason": "stop",
+    "http_status": "ok"
+  },
+  {
+    "run": "mixed-r1/k2",
+    "task_id": "task-0057",
+    "task_type": "long_context",
+    "status": "validation_failed",
+    "step_id": 0,
+    "expected": "104",
+    "response": "{\n  \"answer\": 105\n}",
+    "finish_reason": "stop",
+    "http_status": "ok"
+  },
+  {
+    "run": "mixed-r1/k4",
+    "task_id": "task-0057",
+    "task_type": "long_context",
+    "status": "validation_failed",
+    "step_id": 0,
+    "expected": "104",
+    "response": "{\n  \"answer\": 105\n}",
+    "finish_reason": "stop",
+    "http_status": "ok"
+  },
+  {
+    "run": "mixed-r1/k4",
+    "task_id": "task-0062",
+    "task_type": "long_output",
+    "status": "validation_failed",
+    "step_id": 0,
+    "expected": null,
+    "response": "FIFO scheduling is a first-in-first-out algorithm that processes jobs based on their arrival order. It ensures that the oldest job in the queue is executed immediately, guaranteeing fair treatment for all arriving processes regardless of their relative timing. This simple rule creates a predictable and stable system where the earliest entry is always served first.\n\nThe core operation involves maintaining a queue where the head of the line holds the most recent job. When a process arrives, it is added to the front of this queue, and the oldest job is removed and executed next. This structure prevents any process from waiting indefinitely for a slot, ensuring that the system remains efficient and responsive.\n\nA practical example involves a server managing multiple online applications. If a new client requests a resource, the oldest application is served first, while the newest one waits until the oldest one finishes. This behavior prevents the newest client from blocking the older one, which is crucial for maintaining system stability.\n\nThe primary advantage of FIFO is its simplicity and fairness. It treats all processes equally by prioritizing those that have arrived earliest, ensuring no single process dominates the system. This approach is particularly beneficial in real-time environments where consistent response times are critical.\n\nHead-of-line blocking occurs when a process waiting in the queue cannot proceed until the oldest job is completed. This can cause delays for the waiting process, especially if the queue is long or the system is under load. However, this limitation is often acceptable in many practical scenarios where responsiveness is more important than strict fairness.\n\nCompared to other policies, FIFO is distinct because it does not consider process priority or waiting time. Unlike Round Robin, which gives each process a turn regardless of its age, FIFO ignores these factors and strictly follows arrival order. This makes it ideal for systems where process identity is less important than execution sequence.\n\nIn summary, FIFO scheduling provides a straightforward method for managing queues by prioritizing the earliest arrivals. While it may introduce slight delays for waiting processes, its simplicity and fairness make it a foundational choice in many operating systems and scheduling algorithms.",
+    "finish_reason": "stop",
+    "http_status": "ok"
+  },
+  {
+    "run": "mixed-r1/k8",
+    "task_id": "task-0057",
+    "task_type": "long_context",
+    "status": "validation_failed",
+    "step_id": 0,
+    "expected": "104",
+    "response": "{\n  \"answer\": 105\n}",
+    "finish_reason": "stop",
+    "http_status": "ok"
+  },
+  {
+    "run": "mixed-r2/k1",
+    "task_id": "task-0057",
+    "task_type": "long_context",
+    "status": "validation_failed",
+    "step_id": 0,
+    "expected": "104",
+    "response": "{\n  \"answer\": 105\n}",
+    "finish_reason": "stop",
+    "http_status": "ok"
+  },
+  {
+    "run": "mixed-r2/k2",
+    "task_id": "task-0057",
+    "task_type": "long_context",
+    "status": "validation_failed",
+    "step_id": 0,
+    "expected": "104",
+    "response": "{\n  \"answer\": 105\n}",
+    "finish_reason": "stop",
+    "http_status": "ok"
+  }
+]

@@ -1,0 +1,81 @@
+﻿path,rows,columns,use,validity_notes
+data/baseline-v2-20261028/gpu-repeat1.csv,232,"wall_time,gpu_used_mib,gpu_free_mib,gpu_util_pct",REFERENCE_V2,whole repetition across three K; align timestamps
+data/baseline-v2-20261028/gpu-repeat2.csv,198,"wall_time,gpu_used_mib,gpu_free_mib,gpu_util_pct",REFERENCE_V2,whole repetition across three K; align timestamps
+data/baseline-v2-20261028/gpu-repeat3.csv,226,"wall_time,gpu_used_mib,gpu_free_mib,gpu_util_pct",REFERENCE_V2,whole repetition across three K; align timestamps
+data/baseline-v2-20261028/repeat1/k1/memory.csv,1306,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",REFERENCE_V2,
+data/baseline-v2-20261028/repeat1/k2/memory.csv,2084,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",REFERENCE_V2,
+data/baseline-v2-20261028/repeat1/k4/memory.csv,1883,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",REFERENCE_V2,
+data/baseline-v2-20261028/repeat2/k1/memory.csv,1277,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",REFERENCE_V2,
+data/baseline-v2-20261028/repeat2/k2/memory.csv,1732,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",REFERENCE_V2,
+data/baseline-v2-20261028/repeat2/k4/memory.csv,1495,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",REFERENCE_V2,
+data/baseline-v2-20261028/repeat3/k1/memory.csv,1399,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",REFERENCE_V2,
+data/baseline-v2-20261028/repeat3/k2/memory.csv,1934,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",REFERENCE_V2,
+data/baseline-v2-20261028/repeat3/k4/memory.csv,1707,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",REFERENCE_V2,
+data/diagnostic-20261031/clean-context/k1/cpu_cores.csv,2640,"wall_time,monotonic,cpu,busy_pct,iowait_pct,total_delta_s",PRIMARY,
+data/diagnostic-20261031/clean-context/k1/cpu_threads.csv,3410,"wall_time,monotonic,tid,name,cpu_pct",PRIMARY,
+data/diagnostic-20261031/clean-context/k1/gpu.csv,110,"wall_time,sample_end_wall,gpu_index,utilization.gpu,utilization.memory,memory.used,memory.free,power.draw,power.limit,clocks.sm,clocks.mem,temperature.gpu",PRIMARY,
+data/diagnostic-20261031/clean-context/k1/memory.csv,2457,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",PRIMARY,
+data/diagnostic-20261031/clean-context/k8/cpu_cores.csv,2088,"wall_time,monotonic,cpu,busy_pct,iowait_pct,total_delta_s",PRIMARY,
+data/diagnostic-20261031/clean-context/k8/cpu_threads.csv,2697,"wall_time,monotonic,tid,name,cpu_pct",PRIMARY,
+data/diagnostic-20261031/clean-context/k8/gpu.csv,87,"wall_time,sample_end_wall,gpu_index,utilization.gpu,utilization.memory,memory.used,memory.free,power.draw,power.limit,clocks.sm,clocks.mem,temperature.gpu",PRIMARY,
+data/diagnostic-20261031/clean-context/k8/memory.csv,1989,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",PRIMARY,
+data/diagnostic-20261031/clean-r1/k1/cpu_cores.csv,5160,"wall_time,monotonic,cpu,busy_pct,iowait_pct,total_delta_s",PRIMARY,
+data/diagnostic-20261031/clean-r1/k1/cpu_threads.csv,6665,"wall_time,monotonic,tid,name,cpu_pct",PRIMARY,
+data/diagnostic-20261031/clean-r1/k1/gpu.csv,215,"wall_time,sample_end_wall,gpu_index,utilization.gpu,utilization.memory,memory.used,memory.free,power.draw,power.limit,clocks.sm,clocks.mem,temperature.gpu",PRIMARY,
+data/diagnostic-20261031/clean-r1/k1/memory.csv,4935,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",PRIMARY,
+data/diagnostic-20261031/clean-r1/k2/cpu_cores.csv,8472,"wall_time,monotonic,cpu,busy_pct,iowait_pct,total_delta_s",PRIMARY,
+data/diagnostic-20261031/clean-r1/k2/cpu_threads.csv,10943,"wall_time,monotonic,tid,name,cpu_pct",PRIMARY,
+data/diagnostic-20261031/clean-r1/k2/gpu.csv,353,"wall_time,sample_end_wall,gpu_index,utilization.gpu,utilization.memory,memory.used,memory.free,power.draw,power.limit,clocks.sm,clocks.mem,temperature.gpu",PRIMARY,
+data/diagnostic-20261031/clean-r1/k2/memory.csv,8237,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",PRIMARY,
+data/diagnostic-20261031/clean-r1/k4/cpu_cores.csv,6888,"wall_time,monotonic,cpu,busy_pct,iowait_pct,total_delta_s",PRIMARY,
+data/diagnostic-20261031/clean-r1/k4/cpu_threads.csv,8897,"wall_time,monotonic,tid,name,cpu_pct",PRIMARY,
+data/diagnostic-20261031/clean-r1/k4/gpu.csv,287,"wall_time,sample_end_wall,gpu_index,utilization.gpu,utilization.memory,memory.used,memory.free,power.draw,power.limit,clocks.sm,clocks.mem,temperature.gpu",PRIMARY,
+data/diagnostic-20261031/clean-r1/k4/memory.csv,6780,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",PRIMARY,
+data/diagnostic-20261031/clean-r1/k8/cpu_cores.csv,3576,"wall_time,monotonic,cpu,busy_pct,iowait_pct,total_delta_s",PRIMARY,
+data/diagnostic-20261031/clean-r1/k8/cpu_threads.csv,4619,"wall_time,monotonic,tid,name,cpu_pct",PRIMARY,
+data/diagnostic-20261031/clean-r1/k8/gpu.csv,149,"wall_time,sample_end_wall,gpu_index,utilization.gpu,utilization.memory,memory.used,memory.free,power.draw,power.limit,clocks.sm,clocks.mem,temperature.gpu",PRIMARY,
+data/diagnostic-20261031/clean-r1/k8/memory.csv,3464,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",PRIMARY,
+data/diagnostic-20261031/context-r1/k1/cpu_cores.csv,2712,"wall_time,monotonic,cpu,busy_pct,iowait_pct",EXPLORATORY,INVALID original subsecond CPU percentages; excluded
+data/diagnostic-20261031/context-r1/k1/cpu_threads.csv,3503,"wall_time,monotonic,tid,name,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/context-r1/k1/gpu.csv,113,"wall_time,sample_end_wall,gpu_index,utilization.gpu,utilization.memory,memory.used,memory.free,power.draw,power.limit,clocks.sm,clocks.mem,temperature.gpu",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/context-r1/k1/memory.csv,2500,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/context-r1/k8/cpu_cores.csv,2256,"wall_time,monotonic,cpu,busy_pct,iowait_pct",EXPLORATORY,INVALID original subsecond CPU percentages; excluded
+data/diagnostic-20261031/context-r1/k8/cpu_threads.csv,2914,"wall_time,monotonic,tid,name,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/context-r1/k8/gpu.csv,94,"wall_time,sample_end_wall,gpu_index,utilization.gpu,utilization.memory,memory.used,memory.free,power.draw,power.limit,clocks.sm,clocks.mem,temperature.gpu",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/context-r1/k8/memory.csv,2111,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r1/k1/cpu_cores.csv,5136,"wall_time,monotonic,cpu,busy_pct,iowait_pct",EXPLORATORY,INVALID original subsecond CPU percentages; excluded
+data/diagnostic-20261031/mixed-r1/k1/cpu_threads.csv,6634,"wall_time,monotonic,tid,name,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r1/k1/gpu.csv,214,"wall_time,sample_end_wall,gpu_index,utilization.gpu,utilization.memory,memory.used,memory.free,power.draw,power.limit,clocks.sm,clocks.mem,temperature.gpu",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r1/k1/memory.csv,4987,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r1/k2/cpu_cores.csv,7632,"wall_time,monotonic,cpu,busy_pct,iowait_pct",EXPLORATORY,INVALID original subsecond CPU percentages; excluded
+data/diagnostic-20261031/mixed-r1/k2/cpu_threads.csv,9858,"wall_time,monotonic,tid,name,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r1/k2/gpu.csv,318,"wall_time,sample_end_wall,gpu_index,utilization.gpu,utilization.memory,memory.used,memory.free,power.draw,power.limit,clocks.sm,clocks.mem,temperature.gpu",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r1/k2/memory.csv,7492,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r1/k4/cpu_cores.csv,6912,"wall_time,monotonic,cpu,busy_pct,iowait_pct",EXPLORATORY,INVALID original subsecond CPU percentages; excluded
+data/diagnostic-20261031/mixed-r1/k4/cpu_threads.csv,8928,"wall_time,monotonic,tid,name,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r1/k4/gpu.csv,288,"wall_time,sample_end_wall,gpu_index,utilization.gpu,utilization.memory,memory.used,memory.free,power.draw,power.limit,clocks.sm,clocks.mem,temperature.gpu",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r1/k4/memory.csv,6752,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r1/k8/cpu_cores.csv,3600,"wall_time,monotonic,cpu,busy_pct,iowait_pct",EXPLORATORY,INVALID original subsecond CPU percentages; excluded
+data/diagnostic-20261031/mixed-r1/k8/cpu_threads.csv,4650,"wall_time,monotonic,tid,name,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r1/k8/gpu.csv,150,"wall_time,sample_end_wall,gpu_index,utilization.gpu,utilization.memory,memory.used,memory.free,power.draw,power.limit,clocks.sm,clocks.mem,temperature.gpu",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r1/k8/memory.csv,3530,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r2/k1/cpu_cores.csv,6456,"wall_time,monotonic,cpu,busy_pct,iowait_pct",EXPLORATORY,INVALID original subsecond CPU percentages; excluded
+data/diagnostic-20261031/mixed-r2/k1/cpu_threads.csv,8339,"wall_time,monotonic,tid,name,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r2/k1/gpu.csv,269,"wall_time,sample_end_wall,gpu_index,utilization.gpu,utilization.memory,memory.used,memory.free,power.draw,power.limit,clocks.sm,clocks.mem,temperature.gpu",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r2/k1/memory.csv,5935,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r2/k2/cpu_cores.csv,8616,"wall_time,monotonic,cpu,busy_pct,iowait_pct",EXPLORATORY,INVALID original subsecond CPU percentages; excluded
+data/diagnostic-20261031/mixed-r2/k2/cpu_threads.csv,11129,"wall_time,monotonic,tid,name,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r2/k2/gpu.csv,359,"wall_time,sample_end_wall,gpu_index,utilization.gpu,utilization.memory,memory.used,memory.free,power.draw,power.limit,clocks.sm,clocks.mem,temperature.gpu",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r2/k2/memory.csv,8207,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r2/k4/cpu_cores.csv,6552,"wall_time,monotonic,cpu,busy_pct,iowait_pct",EXPLORATORY,INVALID original subsecond CPU percentages; excluded
+data/diagnostic-20261031/mixed-r2/k4/cpu_threads.csv,8463,"wall_time,monotonic,tid,name,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r2/k4/gpu.csv,273,"wall_time,sample_end_wall,gpu_index,utilization.gpu,utilization.memory,memory.used,memory.free,power.draw,power.limit,clocks.sm,clocks.mem,temperature.gpu",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r2/k4/memory.csv,6388,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r2/k8/cpu_cores.csv,3768,"wall_time,monotonic,cpu,busy_pct,iowait_pct",EXPLORATORY,INVALID original subsecond CPU percentages; excluded
+data/diagnostic-20261031/mixed-r2/k8/cpu_threads.csv,4867,"wall_time,monotonic,tid,name,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r2/k8/gpu.csv,157,"wall_time,sample_end_wall,gpu_index,utilization.gpu,utilization.memory,memory.used,memory.free,power.draw,power.limit,clocks.sm,clocks.mem,temperature.gpu",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/mixed-r2/k8/memory.csv,3671,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/warmup/k1/cpu_cores.csv,360,"wall_time,monotonic,cpu,busy_pct,iowait_pct",EXPLORATORY,INVALID original subsecond CPU percentages; excluded
+data/diagnostic-20261031/warmup/k1/cpu_threads.csv,465,"wall_time,monotonic,tid,name,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/warmup/k1/gpu.csv,15,"wall_time,sample_end_wall,gpu_index,utilization.gpu,utilization.memory,memory.used,memory.free,power.draw,power.limit,clocks.sm,clocks.mem,temperature.gpu",EXPLORATORY,not primary; check corrections/background interference or warmup status
+data/diagnostic-20261031/warmup/k1/memory.csv,365,"run_id,t_wall,t_mono,rss,uss,vms,sys_avail,swap_used,cpu_pct",EXPLORATORY,not primary; check corrections/background interference or warmup status

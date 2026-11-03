@@ -1,0 +1,45 @@
+{
+  "workload_sha256": "28d70ec1d74fcee5d74529175386c2cc8bc7cc3ba08edb4d25aca24ac3b17f51",
+  "count": 16,
+  "k": [
+    1,
+    2,
+    8
+  ],
+  "runtime": {
+    "pid": 450,
+    "command": [
+      "/mnt/c/Users/16854/Documents/Codex/2026-10-25/https-github-com-inno-apfel-memory/work/llama-linux-b11960/llama-b11960/llama-server",
+      "-m",
+      "/mnt/c/Users/16854/Documents/Codex/2026-10-25/https-github-com-inno-apfel-memory/work/repository/models/Qwen3.5-0.8B-Q8_0.gguf",
+      "--host",
+      "127.0.0.1",
+      "--port",
+      "9931",
+      "--metrics",
+      "-np",
+      "10",
+      "-c",
+      "40960",
+      "-ngl",
+      "all",
+      "-fa",
+      "on",
+      "-t",
+      "8",
+      "-tb",
+      "8",
+      "--cache-ram",
+      "0",
+      "--no-cache-idle-slots",
+      "--no-context-shift",
+      "--no-kv-unified"
+    ],
+    "LD_LIBRARY_PATH": "/mnt/c/Users/16854/Documents/Codex/2026-10-25/https-github-com-inno-apfel-memory/work/llama-linux-b11960/cudart-llama-b11960-bin-ubuntu-cuda-12.8-x64:/mnt/c/Users/16854/Documents/Codex/2026-10-25/https-github-com-inno-apfel-memory/work/llama-linux-b11960/llama-b11960",
+    "start_wall": 1793507047.081949
+  },
+  "nsys_version": "NVIDIA Nsight Systems version 2026.5.1.161-265138896106v0\n",
+  "graph": "full trial, native baseline on same injected server before each capture",
+  "node": "warmed per K, first 3 seconds capture; trial drains after stop",
+  "note": "Trace intervals exclude warmup; API wait time overlapping GPU work is not added as independent overhead."
+}

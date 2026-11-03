@@ -1,0 +1,22 @@
+{"run_id": "k1", "event": "arrival", "task_id": "task-0000", "step_id": 0, "t": 0.015341417999991336, "scheduled": 0.0}
+{"run_id": "k1", "event": "admit", "task_id": "task-0000", "step_id": 0, "t": 0.015751436000002172, "ready": 0.0, "sequence": 0}
+{"run_id": "k1", "event": "arrival", "task_id": "task-0001", "step_id": 0, "t": 0.021015797999993424, "scheduled": 0.02}
+{"run_id": "k1", "event": "arrival", "task_id": "task-0002", "step_id": 0, "t": 0.04019674100000259, "scheduled": 0.04}
+{"run_id": "k1", "event": "arrival", "task_id": "task-0003", "step_id": 0, "t": 0.06065497599999503, "scheduled": 0.06}
+{"run_id": "k1", "event": "request_end", "task_id": "task-0000", "step_id": 0, "t": 1.325319565000001, "request_end": 1.322828310999995, "status": "ok"}
+{"run_id": "k1", "event": "task_end", "task_id": "task-0000", "step_id": 1, "t": 1.3282731179999985, "status": "completed"}
+{"run_id": "k1", "event": "admit", "task_id": "task-0001", "step_id": 0, "t": 1.3298663629999936, "ready": 0.02, "sequence": 1}
+{"run_id": "k1", "event": "request_end", "task_id": "task-0001", "step_id": 0, "t": 3.989040079999995, "request_end": 3.9874500119999965, "status": "ok"}
+{"run_id": "k1", "event": "task_end", "task_id": "task-0001", "step_id": 1, "t": 3.9901009879999947, "status": "completed"}
+{"run_id": "k1", "event": "admit", "task_id": "task-0002", "step_id": 0, "t": 3.9904234360000004, "ready": 0.04, "sequence": 2}
+{"run_id": "k1", "event": "request_end", "task_id": "task-0002", "step_id": 0, "t": 5.581415621999994, "request_end": 5.580018772999992, "status": "ok"}
+{"run_id": "k1", "event": "task_end", "task_id": "task-0002", "step_id": 1, "t": 5.582255551999992, "status": "completed"}
+{"run_id": "k1", "event": "admit", "task_id": "task-0003", "step_id": 0, "t": 5.5826062839999935, "ready": 0.06, "sequence": 3}
+{"run_id": "k1", "event": "request_end", "task_id": "task-0003", "step_id": 0, "t": 7.880561185999994, "request_end": 7.879442306000001, "status": "ok"}
+{"run_id": "k1", "event": "tool_wait", "task_id": "task-0003", "step_id": 1, "t": 7.881069064999991, "tool_start": 7.881061303999999, "tool_end": 7.981061303999999}
+{"run_id": "k1", "event": "admit", "task_id": "task-0003", "step_id": 1, "t": 7.981757676000001, "ready": 7.981061303999999, "sequence": 4}
+{"run_id": "k1", "event": "request_end", "task_id": "task-0003", "step_id": 1, "t": 8.119047483000003, "request_end": 8.117657297999997, "status": "ok"}
+{"run_id": "k1", "event": "tool_wait", "task_id": "task-0003", "step_id": 2, "t": 8.119456443000004, "tool_start": 8.119449195000001, "tool_end": 8.219449195000001}
+{"run_id": "k1", "event": "admit", "task_id": "task-0003", "step_id": 2, "t": 8.220338558999998, "ready": 8.219449195000001, "sequence": 5}
+{"run_id": "k1", "event": "request_end", "task_id": "task-0003", "step_id": 2, "t": 8.364452563, "request_end": 8.363254022999996, "status": "ok"}
+{"run_id": "k1", "event": "task_end", "task_id": "task-0003", "step_id": 3, "t": 8.366165804999994, "status": "completed"}

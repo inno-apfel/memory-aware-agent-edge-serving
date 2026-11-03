@@ -1,0 +1,17 @@
+[
+  {
+    "path": "C:\\Users\\16854\\Documents\\Codex\\2026-10-25\\https-github-com-inno-apfel-memory\\work\\llama-b11960-linux.tar.gz",
+    "sha256": "64d57beb9abb637c177c6afb313760a0c0782224cac71e74869eed5b8f9a1ea4",
+    "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11960/llama-b11960-bin-ubuntu-cuda-12.8-x64.tar.gz"
+  },
+  {
+    "path": "C:\\Users\\16854\\Documents\\Codex\\2026-10-25\\https-github-com-inno-apfel-memory\\work\\cudart-b11960-linux.tar.gz",
+    "sha256": "7c4d5974bd39649df649649e5d71950688a70e37aaae00bf11afbb656ea2cc56",
+    "url": "https://github.com/ggml-org/llama.cpp/releases/download/b11960/cudart-llama-b11960-bin-ubuntu-cuda-12.8-x64.tar.gz"
+  },
+  {
+    "path": "C:\\Users\\16854\\Documents\\Codex\\2026-10-25\\https-github-com-inno-apfel-memory\\work\\repository\\models\\Qwen3.5-0.8B-Q8_0.gguf",
+    "sha256": "37ae482d336108d23516fa35e8e0c4126688d81018b87178a18d752a1357814f",
+    "url": "https://huggingface.co/ggml-org/Qwen3.5-0.8B-GGUF/resolve/807dfd9a6fadbf703207aac3bfb0b2b3040d077c/Qwen3.5-0.8B-Q8_0.gguf?download=true"
+  }
+]

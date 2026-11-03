@@ -1,0 +1,46 @@
+
+/usr/lib/wsl/drivers/nvam.inf_amd64_f948eabc63cd8839/libcuda.so.1.1:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+00000000005921b0 <cuGetErrorString@@Base+0x299080>:
+  5921b0:	7d 80                	jge    592132 <cuGetErrorString@@Base+0x299002>
+  5921b2:	e8 e9 49 d8 ff       	call   316ba0 <cuGetErrorString@@Base+0x1da70>
+  5921b7:	45 85 f6             	test   %r14d,%r14d
+  5921ba:	74 2c                	je     5921e8 <cuGetErrorString@@Base+0x2990b8>
+  5921bc:	e9 27 01 00 00       	jmp    5922e8 <cuGetErrorString@@Base+0x2991b8>
+  5921c1:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  5921c6:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  5921cd:	00 00 00 
+  5921d0:	8b 85 7c ff ff ff    	mov    -0x84(%rbp),%eax
+  5921d6:	83 f8 01             	cmp    $0x1,%eax
+  5921d9:	0f 84 d1 02 00 00    	je     5924b0 <cuGetErrorString@@Base+0x299380>
+  5921df:	83 f8 05             	cmp    $0x5,%eax
+  5921e2:	0f 84 f2 fe ff ff    	je     5920da <cuGetErrorString@@Base+0x298faa>
+  5921e8:	f3 90                	pause
+  5921ea:	48 89 de             	mov    %rbx,%rsi
+  5921ed:	4c 89 e7             	mov    %r12,%rdi
+  5921f0:	e8 db 3e af 00       	call   10860d0 <cuGetErrorString@@Base+0xd8cfa0>
+  5921f5:	85 c0                	test   %eax,%eax
+  5921f7:	74 d7                	je     5921d0 <cuGetErrorString@@Base+0x2990a0>
+  5921f9:	83 bd 7c ff ff ff 01 	cmpl   $0x1,-0x84(%rbp)
+  592200:	0f 84 aa 02 00 00    	je     5924b0 <cuGetErrorString@@Base+0x299380>
+  592206:	be 01 00 00 00       	mov    $0x1,%esi
+  59220b:	4c 89 ff             	mov    %r15,%rdi
+  59220e:	e8 5d 27 cb ff       	call   244970 <cudbgGetAPI@@Base+0x99b0>
+  592213:	31 f6                	xor    %esi,%esi
+  592215:	41 89 c5             	mov    %eax,%r13d
+  592218:	4c 89 ff             	mov    %r15,%rdi
+  59221b:	e8 00 c8 df ff       	call   38ea20 <cuGetErrorString@@Base+0x958f0>
+  592220:	45 85 ed             	test   %r13d,%r13d
+  592223:	b8 cf 02 00 00       	mov    $0x2cf,%eax
+  592228:	44 0f 44 e8          	cmove  %eax,%r13d
+  59222c:	e9 a9 fe ff ff       	jmp    5920da <cuGetErrorString@@Base+0x298faa>
+  592231:	0f 1f 44 00 00       	nopl   0x0(%rax,%rax,1)
+  592236:	66 2e 0f 1f 84 00 00 	cs nopw 0x0(%rax,%rax,1)
+  59223d:	00 00 00 
+  592240:	80 bd 5b ff ff ff 00 	cmpb   $0x0,-0xa5(%rbp)
+  592247:	0f 84 bd fe ff ff    	je     59210a <cuGetErrorString@@Base+0x298fda>
+  59224d:	be                   	.byte 0xbe
+  59224e:	01 00                	add    %eax,(%rax)

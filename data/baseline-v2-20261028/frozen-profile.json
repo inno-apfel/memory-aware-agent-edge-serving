@@ -1,0 +1,24 @@
+{
+  "profile": "v2-bounded-thinking-json",
+  "development_seed": 101,
+  "evaluation_seed": 42,
+  "task_sha256": "28d70ec1d74fcee5d74529175386c2cc8bc7cc3ba08edb4d25aca24ac3b17f51",
+  "arithmetic": {
+    "thinking": true,
+    "reasoning_budget_tokens": 512,
+    "max_tokens": 768,
+    "answer_format": "json_integer"
+  },
+  "tool_copy": {
+    "thinking": false,
+    "max_tokens": 128,
+    "answer_format": "json_integer"
+  },
+  "long_output": {
+    "thinking": false,
+    "max_tokens": 1024,
+    "min_words": 180,
+    "suffix": "END"
+  },
+  "validator_note": "Exact original numeric answers; long-text minimum and END unchanged; no retries or skipped tasks"
+}

@@ -1,0 +1,10 @@
+{
+  "invalid": "v1 cpu_cores.csv busy_pct/iowait percentages must not be used; raw files retained",
+  "valid_replacement": "clean-r1/k*/cpu_cores.csv and clean-context/k*/cpu_cores.csv, collector_version=2",
+  "unaffected": "thread CPU deltas, GPU, PSI, vmstat, request/task logs and timing",
+  "perf_initial_failure": "Initial perf capture on Windows mount failed with Bad address. Linux /tmp retry succeeded; the first cpu-profile.data is not analyzed.",
+  "windows_swap": "Non-escalated Python pagefile counter unavailable, recorded null/error; Windows CIM paging rates collected separately.",
+  "gpu_clock": "WSL clocks.sm inconsistent with native Windows query; not used to infer throttling.",
+  "cancelled_plan": "core-validation-plan.json was queued then cancelled before execution when background game load was discovered. Replaced by clean-plan.json after user exited game.",
+  "test_results": "10 unittest cases passed, including subsecond idle and duplicate guest CPU accounting."
+}

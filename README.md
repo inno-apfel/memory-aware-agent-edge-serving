@@ -1,5 +1,9 @@
 # Memory-aware agent edge serving
 
+Raw baseline logs, CPU/memory/GPU diagnostics and Nsight captures are available
+under [data/](data/README.md). Native `.nsys-rep` captures use Git LFS;
+run `git lfs pull` to download them. See the data guide for valid clean runs.
+
 **Research Question:** <br>
 On a memory-capped llama.cpp server, what limits completed agent work as concurrency, context size, and tool-delay idle time vary: decode bandwidth, KV capacity, or re-prefill after context loss?
 

@@ -1,0 +1,50 @@
+[
+  {
+    "mode": "REAL_MODEL",
+    "k": 1,
+    "tasks": 16,
+    "completed": 16,
+    "statuses": {
+      "completed": 16
+    },
+    "drain_s": 31.620331578000332,
+    "completed_tasks_per_s": 0.5060035490308366,
+    "p50_s": 18.94784771999941,
+    "p95_s": 31.315240295999683,
+    "peak_rss_bytes": 1468964864,
+    "memory_samples": 1306,
+    "monitor_errors": []
+  },
+  {
+    "mode": "REAL_MODEL",
+    "k": 2,
+    "tasks": 16,
+    "completed": 16,
+    "statuses": {
+      "completed": 16
+    },
+    "drain_s": 51.655682365002576,
+    "completed_tasks_per_s": 0.30974327058430684,
+    "p50_s": 34.13300708700335,
+    "p95_s": 51.3508845410026,
+    "peak_rss_bytes": 1469132800,
+    "memory_samples": 2084,
+    "monitor_errors": []
+  },
+  {
+    "mode": "REAL_MODEL",
+    "k": 4,
+    "tasks": 16,
+    "completed": 16,
+    "statuses": {
+      "completed": 16
+    },
+    "drain_s": 46.91118815599839,
+    "completed_tasks_per_s": 0.3410700225028116,
+    "p50_s": 35.70306427999894,
+    "p95_s": 46.60560372500113,
+    "peak_rss_bytes": 1469181952,
+    "memory_samples": 1883,
+    "monitor_errors": []
+  }
+]

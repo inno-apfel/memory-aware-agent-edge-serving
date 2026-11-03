@@ -1,0 +1,92 @@
+[
+  {
+    "run": "repeat1/k1",
+    "tasks": 16,
+    "requests": 24,
+    "completed": 16,
+    "three_step_complete": 4,
+    "max_active": 1,
+    "token_budget_valid": true,
+    "tool_dependency_valid": true
+  },
+  {
+    "run": "repeat1/k2",
+    "tasks": 16,
+    "requests": 24,
+    "completed": 16,
+    "three_step_complete": 4,
+    "max_active": 2,
+    "token_budget_valid": true,
+    "tool_dependency_valid": true
+  },
+  {
+    "run": "repeat1/k4",
+    "tasks": 16,
+    "requests": 24,
+    "completed": 16,
+    "three_step_complete": 4,
+    "max_active": 4,
+    "token_budget_valid": true,
+    "tool_dependency_valid": true
+  },
+  {
+    "run": "repeat2/k1",
+    "tasks": 16,
+    "requests": 24,
+    "completed": 16,
+    "three_step_complete": 4,
+    "max_active": 1,
+    "token_budget_valid": true,
+    "tool_dependency_valid": true
+  },
+  {
+    "run": "repeat2/k2",
+    "tasks": 16,
+    "requests": 24,
+    "completed": 16,
+    "three_step_complete": 4,
+    "max_active": 2,
+    "token_budget_valid": true,
+    "tool_dependency_valid": true
+  },
+  {
+    "run": "repeat2/k4",
+    "tasks": 16,
+    "requests": 24,
+    "completed": 16,
+    "three_step_complete": 4,
+    "max_active": 4,
+    "token_budget_valid": true,
+    "tool_dependency_valid": true
+  },
+  {
+    "run": "repeat3/k1",
+    "tasks": 16,
+    "requests": 24,
+    "completed": 16,
+    "three_step_complete": 4,
+    "max_active": 1,
+    "token_budget_valid": true,
+    "tool_dependency_valid": true
+  },
+  {
+    "run": "repeat3/k2",
+    "tasks": 16,
+    "requests": 24,
+    "completed": 16,
+    "three_step_complete": 4,
+    "max_active": 2,
+    "token_budget_valid": true,
+    "tool_dependency_valid": true
+  },
+  {
+    "run": "repeat3/k4",
+    "tasks": 16,
+    "requests": 24,
+    "completed": 16,
+    "three_step_complete": 4,
+    "max_active": 4,
+    "token_budget_valid": true,
+    "tool_dependency_valid": true
+  }
+]

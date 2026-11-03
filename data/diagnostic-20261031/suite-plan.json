@@ -1,0 +1,63 @@
+{
+  "seed": 20261031,
+  "profile": "v2",
+  "server_pid": 450,
+  "process_created": 1793507047.04,
+  "server_command": [
+    "/mnt/c/Users/16854/Documents/Codex/2026-10-25/https-github-com-inno-apfel-memory/work/llama-linux-b11960/llama-b11960/llama-server",
+    "-m",
+    "/mnt/c/Users/16854/Documents/Codex/2026-10-25/https-github-com-inno-apfel-memory/work/repository/models/Qwen3.5-0.8B-Q8_0.gguf",
+    "--host",
+    "127.0.0.1",
+    "--port",
+    "9931",
+    "--metrics",
+    "-np",
+    "10",
+    "-c",
+    "40960",
+    "-ngl",
+    "all",
+    "-fa",
+    "on",
+    "-t",
+    "8",
+    "-tb",
+    "8",
+    "--cache-ram",
+    "0",
+    "--no-cache-idle-slots",
+    "--no-context-shift",
+    "--no-kv-unified"
+  ],
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+  "logical_cpus": 24,
+  "ram_bytes": 8117022720,
+  "swap_bytes": 2147483648,
+  "start_wall": 1793507073.7386138,
+  "orders": [
+    [
+      1,
+      2,
+      4,
+      8
+    ],
+    [
+      8,
+      4,
+      2,
+      1
+    ]
+  ],
+  "context_probe": {
+    "count": 32,
+    "long_context_records": 200,
+    "order": [
+      1,
+      8
+    ]
+  },
+  "arrival": "finite burst, 0.02 s spacing; not steady-state throughput",
+  "repetitions": "two paired repeats, descriptive not significance testing",
+  "generation": "same frozen v2 config, no quality tuning or retries"
+}

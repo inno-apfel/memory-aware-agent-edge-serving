@@ -1,0 +1,8 @@
+{
+  "checks": "task IDs complete and unique, unique requests, inflight<=K, reserved context<=4096, no collector errors",
+  "runs": 17,
+  "passed": true,
+  "per_core_v1_excluded": true,
+  "evaluated_runs": 16,
+  "failures_retained": 11
+}

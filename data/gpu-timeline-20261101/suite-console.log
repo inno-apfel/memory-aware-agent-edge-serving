@@ -1,0 +1,25 @@
+graph-k1-baseline {'k': 1, 'start_wall': 1793561900.3341658, 'end_wall': 1793561931.7365782, 'drain_s': 31.397883270999984, 'tasks': 16, 'passed': 16, 'requests': 24, 'request_ok': 24, 'output_tokens': 6795}
+CAPTURE_START graph 1 1793561932.2943635
+graph-k1-traced {'k': 1, 'start_wall': 1793561932.297088, 'end_wall': 1793561963.5793371, 'drain_s': 31.27860673700002, 'tasks': 16, 'passed': 16, 'requests': 24, 'request_ok': 24, 'output_tokens': 6795}
+CAPTURE_DONE graph 1
+graph-k2-baseline {'k': 2, 'start_wall': 1793561968.9067678, 'end_wall': 1793562017.0775347, 'drain_s': 48.164894377999985, 'tasks': 16, 'passed': 16, 'requests': 24, 'request_ok': 24, 'output_tokens': 6779}
+CAPTURE_START graph 2 1793562017.528095
+graph-k2-traced {'k': 2, 'start_wall': 1793562017.5314164, 'end_wall': 1793562065.2055366, 'drain_s': 47.66108425799996, 'tasks': 16, 'passed': 16, 'requests': 24, 'request_ok': 24, 'output_tokens': 6775}
+CAPTURE_DONE graph 2
+graph-k8-baseline {'k': 8, 'start_wall': 1793562115.9960248, 'end_wall': 1793562147.0980859, 'drain_s': 31.096209982000005, 'tasks': 16, 'passed': 16, 'requests': 24, 'request_ok': 24, 'output_tokens': 7094}
+CAPTURE_START graph 8 1793562147.5878658
+graph-k8-traced {'k': 8, 'start_wall': 1793562147.5938654, 'end_wall': 1793562174.8120534, 'drain_s': 27.202798658999995, 'tasks': 16, 'passed': 15, 'requests': 24, 'request_ok': 24, 'output_tokens': 6381}
+CAPTURE_DONE graph 8
+node-k8-baseline {'k': 8, 'start_wall': 1793562220.283898, 'end_wall': 1793562241.9039478, 'drain_s': 21.61526589199991, 'tasks': 16, 'passed': 16, 'requests': 24, 'request_ok': 24, 'output_tokens': 5922}
+CAPTURE_START node 8 1793562242.566744
+node-k8-traced {'k': 8, 'start_wall': 1793562242.572237, 'end_wall': 1793562270.3967118, 'drain_s': 27.81745963200001, 'tasks': 16, 'passed': 16, 'requests': 24, 'request_ok': 24, 'output_tokens': 6834}
+CAPTURE_DONE node 8
+node-k2-baseline {'k': 2, 'start_wall': 1793562271.7750397, 'end_wall': 1793562322.1497, 'drain_s': 50.368798916999935, 'tasks': 16, 'passed': 16, 'requests': 24, 'request_ok': 24, 'output_tokens': 6578}
+CAPTURE_START node 2 1793562322.7968812
+node-k2-traced {'k': 2, 'start_wall': 1793562322.8034837, 'end_wall': 1793562372.618125, 'drain_s': 49.807436034000034, 'tasks': 16, 'passed': 16, 'requests': 24, 'request_ok': 24, 'output_tokens': 6582}
+CAPTURE_DONE node 2
+node-k1-baseline {'k': 1, 'start_wall': 1793562373.3135881, 'end_wall': 1793562405.5448732, 'drain_s': 32.218006273000015, 'tasks': 16, 'passed': 16, 'requests': 24, 'request_ok': 24, 'output_tokens': 6795}
+CAPTURE_START node 1 1793562406.0078328
+node-k1-traced {'k': 1, 'start_wall': 1793562406.0162015, 'end_wall': 1793562438.7357523, 'drain_s': 32.711775429, 'tasks': 16, 'passed': 16, 'requests': 24, 'request_ok': 24, 'output_tokens': 6795}
+CAPTURE_DONE node 1
+TIMELINE_SUITE_FINISHED

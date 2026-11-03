@@ -1,0 +1,11 @@
+{
+  "k": 2,
+  "start_wall": 1793562682.7810433,
+  "end_wall": 1793562727.0901299,
+  "drain_s": 44.30394432200001,
+  "tasks": 16,
+  "passed": 16,
+  "requests": 24,
+  "request_ok": 24,
+  "output_tokens": 6530
+}

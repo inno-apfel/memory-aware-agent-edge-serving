@@ -1,0 +1,10 @@
+{
+  "wall_time": 1793508313.838,
+  "game_process_present": false,
+  "memory": {
+    "AvailableMBytes": 3815,
+    "PagesInputPersec": 287,
+    "PagesOutputPersec": 0
+  },
+  "gpu": "75, 1622, 6278"
+}

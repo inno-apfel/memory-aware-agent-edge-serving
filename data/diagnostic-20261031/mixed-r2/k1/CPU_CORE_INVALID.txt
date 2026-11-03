@@ -1,0 +1,1 @@
+Original cpu_cores.csv percentages are invalid and excluded. Use clean-r1 or clean-context collector_version=2 data. Other telemetry remains available; environment interference is documented separately.

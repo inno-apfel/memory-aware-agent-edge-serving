@@ -1,0 +1,63 @@
+{
+  "run_id": "k4",
+  "mode": "REAL_MODEL",
+  "workload_sha256": "1864c2a5e14920e98a3c009bcb4c8f4635fe5ddf5f09958076bce966557fc09b",
+  "concurrency": 4,
+  "url": "http://127.0.0.1:9931/v1/chat/completions",
+  "server_pid": 450,
+  "git_commit": "e5aa5f593f56059acdbbc62112c5d9e9185f76f9",
+  "dirty": true,
+  "source_sha256": {
+    "src/agent_runner.py": "55f04bf7e2e31bb4c3a1321ec4fb2886f676f38d6344b26217f6c74e01852139",
+    "src/monitor.py": "10d1a458874561d28d68211918367bfab4b74d3b1c74b4a83ea63f79a14abea0",
+    "src/resource_monitor.py": "9a06f193c2164cf678e23d4ba65670f908906c65dbc97ff7f8ec6e101630066c",
+    "src/runner.py": "9aa059df751925982b5d1ed38bdffacb36b909a0f73425e88a72c28f78879aba",
+    "src/send.py": "6bd687045ac292144aa3df70a4df830fcc6d49f901c8087975b24500ef334ba7",
+    "src/transport.py": "eba851e6399fb6d8e16b7967b22ccb0f1b4d4bf96949abb265eabad35c39046f",
+    "src/utils.py": "c19738086a4bef0cac39f0ec0362fdcb5dced0eadf6e42c1fb5528d66e951ec9",
+    "scripts/mock_server.py": "8331e62837f021cffff500bf357a4a0f9f09ce1e9fd225dda237f896a17bc7f8",
+    "scripts/run_diagnostic_suite.py": "05bfdaac662b6f1c0966c8b18c74b0c141ec84865c7e9f2cdb3e3c6a67b0bc96",
+    "scripts/run_experiment.py": "9d1c1bc19c23bfe1c860dd918fe90a7a701ac52b7535f0fe23219a237c4a6ba4",
+    "scripts/sample_host.py": "1484feeaa56ab234138dc9483b8e5766cd1e0af50678465261fcbbd0fb419ab5",
+    "workloads/generate.py": "46cf28801309cd82044c7b6eed907e81acec2c9baa4b7ce55e2b68c337a17b3f"
+  },
+  "python": "3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+  "server_config": {
+    "server": {
+      "model": "ggml-org/Qwen3.5-0.8B-GGUF",
+      "host": "127.0.0.1",
+      "port": 9931,
+      "context_size": 40960,
+      "parallel_slots": 10
+    }
+  },
+  "dependencies": {
+    "requests": "2.34.2",
+    "psutil": "7.2.2",
+    "PyYAML": "6.0.3"
+  },
+  "start_wall": 1793507734.5045507,
+  "start_monotonic": 752.473030512,
+  "timeout_s": 120.0,
+  "window": "finite workload from injection origin through drain; no warmup",
+  "memory_scope": "explicit local server process tree",
+  "pending_real_metadata": [
+    "model file hash",
+    "runtime version",
+    "hardware budget",
+    "token/context calibration"
+  ],
+  "diagnostic_annotation": {
+    "collector_version": 1,
+    "per_core_valid": false,
+    "invalid_core_reason": "psutil subsecond normalization: original per-core values excluded",
+    "loaded_resource_monitor_sha256": "9a06f193c2164cf678e23d4ba65670f908906c65dbc97ff7f8ec6e101630066c",
+    "source_hash_caveat": "Existing source_sha256 are on-disk snapshots, not necessarily loaded-module hashes; original suite retained v1 in memory after correction.",
+    "runtime": "llama.cpp b11960 / 8642541b2, CUDA12.8",
+    "model_sha256": "37ae482d336108d23516fa35e8e0c4126688d81018b87178a18d752a1357814f",
+    "server_metadata": "../../server-process.json",
+    "host_telemetry": "../../windows-host-v2.jsonl and ../../windows-paging.jsonl; later start / partial coverage",
+    "window": "finite burst through drain, not steady-state capacity"
+  }
+}

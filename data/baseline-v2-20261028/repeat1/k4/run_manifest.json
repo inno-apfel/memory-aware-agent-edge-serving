@@ -1,0 +1,95 @@
+{
+  "run_id": "k4",
+  "mode": "REAL_MODEL",
+  "workload_sha256": "28d70ec1d74fcee5d74529175386c2cc8bc7cc3ba08edb4d25aca24ac3b17f51",
+  "concurrency": 4,
+  "url": "http://127.0.0.1:9931/v1/chat/completions",
+  "server_pid": 437,
+  "git_commit": "c95fc694592aa9be29ce7e888656138663333fa5",
+  "dirty": true,
+  "source_sha256": {
+    "src/agent_runner.py": "55f04bf7e2e31bb4c3a1321ec4fb2886f676f38d6344b26217f6c74e01852139",
+    "src/monitor.py": "10d1a458874561d28d68211918367bfab4b74d3b1c74b4a83ea63f79a14abea0",
+    "src/runner.py": "9aa059df751925982b5d1ed38bdffacb36b909a0f73425e88a72c28f78879aba",
+    "src/send.py": "6bd687045ac292144aa3df70a4df830fcc6d49f901c8087975b24500ef334ba7",
+    "src/transport.py": "eba851e6399fb6d8e16b7967b22ccb0f1b4d4bf96949abb265eabad35c39046f",
+    "src/utils.py": "c19738086a4bef0cac39f0ec0362fdcb5dced0eadf6e42c1fb5528d66e951ec9",
+    "scripts/mock_server.py": "8331e62837f021cffff500bf357a4a0f9f09ce1e9fd225dda237f896a17bc7f8",
+    "scripts/run_experiment.py": "1afc4fd3e2daa8596afee1a5cdf8ba7914da4ea99523620a797f123926a916d5",
+    "workloads/generate.py": "46cf28801309cd82044c7b6eed907e81acec2c9baa4b7ce55e2b68c337a17b3f"
+  },
+  "python": "3.14.4 (main, Aug 20 2026, 10:41:58) [GCC 15.2.0]",
+  "platform": "Linux-6.18.54.1-microsoft-standard-WSL2-x86_64-with-glibc2.43",
+  "server_config": {
+    "server": {
+      "model": "ggml-org/Qwen3.5-0.8B-GGUF",
+      "host": "127.0.0.1",
+      "port": 9931,
+      "context_size": 40960,
+      "parallel_slots": 10
+    }
+  },
+  "dependencies": {
+    "requests": "2.34.2",
+    "psutil": "7.2.2",
+    "PyYAML": "6.0.3"
+  },
+  "start_wall": 1793247025.930601,
+  "start_monotonic": 22773.79517951,
+  "timeout_s": 120.0,
+  "window": "finite fixed arrival trace through drain; warm server; cache_prompt=false",
+  "memory_scope": "explicit local server process tree",
+  "pending_real_metadata": [],
+  "runtime_metadata": {
+    "server_process": {
+      "pid": 437,
+      "command": [
+        "/mnt/c/Users/16854/Documents/Codex/2026-10-25/https-github-com-inno-apfel-memory/work/llama-linux-b11960/llama-b11960/llama-server",
+        "-m",
+        "/mnt/c/Users/16854/Documents/Codex/2026-10-25/https-github-com-inno-apfel-memory/work/repository/models/Qwen3.5-0.8B-Q8_0.gguf",
+        "--host",
+        "127.0.0.1",
+        "--port",
+        "9931",
+        "--metrics",
+        "-np",
+        "10",
+        "-c",
+        "40960",
+        "-ngl",
+        "all",
+        "-fa",
+        "on",
+        "-t",
+        "8",
+        "-tb",
+        "8",
+        "--cache-ram",
+        "0",
+        "--no-cache-idle-slots",
+        "--no-context-shift",
+        "--no-kv-unified"
+      ],
+      "LD_LIBRARY_PATH": "/mnt/c/Users/16854/Documents/Codex/2026-10-25/https-github-com-inno-apfel-memory/work/llama-linux-b11960/cudart-llama-b11960-bin-ubuntu-cuda-12.8-x64:/mnt/c/Users/16854/Documents/Codex/2026-10-25/https-github-com-inno-apfel-memory/work/llama-linux-b11960/llama-b11960",
+      "start_wall": 1793224514.7454405
+    },
+    "version": "0.8.0-dev b11960 8642541b2",
+    "backend": "CUDA 12.8",
+    "quantization": "Q8_0",
+    "generation_profile": "v2: thinking512 for arithmetic, no thinking for tool copy or long text",
+    "model_sha256": "37ae482d336108d23516fa35e8e0c4126688d81018b87178a18d752a1357814f",
+    "model_revision": "807dfd9a6fadbf703207aac3bfb0b2b3040d077c",
+    "environment_file": "../../environment.json",
+    "token_calibration_file": "../../token-calibration.json",
+    "gpu_scope": "whole GPU, not per-process",
+    "gpu_samples_file": "../../gpu-repeat1.csv",
+    "budget": "WSL configured default RAM ceiling, no additional cap; GPU 8 GiB"
+  },
+  "warmup": "server default model warmup, v2 development seed101 passed at K1 and K4 before freezing seed42 workload",
+  "repetition": 1,
+  "order": [
+    1,
+    2,
+    4
+  ]
+}

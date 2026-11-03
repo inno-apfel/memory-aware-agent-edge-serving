@@ -1,0 +1,199 @@
+STAGE_START warmup 1793507073.7440112
+[
+  {
+    "mode": "REAL_MODEL",
+    "k": 1,
+    "tasks": 4,
+    "completed": 4,
+    "statuses": {
+      "completed": 4
+    },
+    "drain_s": 8.370888070999996,
+    "completed_tasks_per_s": 0.4778465517723922,
+    "p50_s": 3.969367641000001,
+    "p95_s": 8.305355945000004,
+    "peak_rss_bytes": 991121408,
+    "memory_samples": 365,
+    "monitor_errors": []
+  }
+]
+STAGE_FINISHED warmup 1793507082.7726882
+STAGE_START mixed-r1 1793507082.7744346
+[
+  {
+    "mode": "REAL_MODEL",
+    "k": 1,
+    "tasks": 64,
+    "completed": 63,
+    "statuses": {
+      "completed": 63,
+      "validation_failed": 1
+    },
+    "drain_s": 118.33472382900001,
+    "completed_tasks_per_s": 0.5323881102814619,
+    "p50_s": 76.94067969600002,
+    "p95_s": 116.92695892300002,
+    "peak_rss_bytes": 1704771584,
+    "memory_samples": 4987,
+    "monitor_errors": []
+  },
+  {
+    "mode": "REAL_MODEL",
+    "k": 2,
+    "tasks": 64,
+    "completed": 62,
+    "statuses": {
+      "completed": 62,
+      "validation_failed": 2
+    },
+    "drain_s": 185.238872518,
+    "completed_tasks_per_s": 0.3347029657286181,
+    "p50_s": 125.39423535699999,
+    "p95_s": 183.642840636,
+    "peak_rss_bytes": 1726173184,
+    "memory_samples": 7492,
+    "monitor_errors": []
+  },
+  {
+    "mode": "REAL_MODEL",
+    "k": 4,
+    "tasks": 64,
+    "completed": 62,
+    "statuses": {
+      "completed": 62,
+      "validation_failed": 2
+    },
+    "drain_s": 168.26614519100002,
+    "completed_tasks_per_s": 0.36846389943516794,
+    "p50_s": 109.42794174400002,
+    "p95_s": 166.203601583,
+    "peak_rss_bytes": 1727262720,
+    "memory_samples": 6752,
+    "monitor_errors": []
+  },
+  {
+    "mode": "REAL_MODEL",
+    "k": 8,
+    "tasks": 64,
+    "completed": 63,
+    "statuses": {
+      "completed": 63,
+      "validation_failed": 1
+    },
+    "drain_s": 87.5723967890001,
+    "completed_tasks_per_s": 0.7194047703386987,
+    "p50_s": 58.75771182600006,
+    "p95_s": 82.85585632700003,
+    "peak_rss_bytes": 1687130112,
+    "memory_samples": 3530,
+    "monitor_errors": []
+  }
+]
+STAGE_FINISHED mixed-r1 1793507642.8764467
+STAGE_START mixed-r2 1793507642.8793907
+[
+  {
+    "mode": "REAL_MODEL",
+    "k": 8,
+    "tasks": 64,
+    "completed": 64,
+    "statuses": {
+      "completed": 64
+    },
+    "drain_s": 91.30108503600002,
+    "completed_tasks_per_s": 0.7009774306051763,
+    "p50_s": 59.68317452700001,
+    "p95_s": 88.27266316899998,
+    "peak_rss_bytes": 1607004160,
+    "memory_samples": 3671,
+    "monitor_errors": []
+  },
+  {
+    "mode": "REAL_MODEL",
+    "k": 4,
+    "tasks": 64,
+    "completed": 64,
+    "statuses": {
+      "completed": 64
+    },
+    "drain_s": 159.3404445970001,
+    "completed_tasks_per_s": 0.40165571372583536,
+    "p50_s": 105.94375157300001,
+    "p95_s": 157.14184381700008,
+    "peak_rss_bytes": 1687908352,
+    "memory_samples": 6388,
+    "monitor_errors": []
+  },
+  {
+    "mode": "REAL_MODEL",
+    "k": 2,
+    "tasks": 64,
+    "completed": 63,
+    "statuses": {
+      "completed": 63,
+      "validation_failed": 1
+    },
+    "drain_s": 209.84750375300007,
+    "completed_tasks_per_s": 0.3002180100943866,
+    "p50_s": 127.50342602799995,
+    "p95_s": 208.07234702200006,
+    "peak_rss_bytes": 1728380928,
+    "memory_samples": 8207,
+    "monitor_errors": []
+  },
+  {
+    "mode": "REAL_MODEL",
+    "k": 1,
+    "tasks": 64,
+    "completed": 63,
+    "statuses": {
+      "completed": 63,
+      "validation_failed": 1
+    },
+    "drain_s": 151.77593348599999,
+    "completed_tasks_per_s": 0.41508557090054865,
+    "p50_s": 101.06188116600009,
+    "p95_s": 150.32989761200017,
+    "peak_rss_bytes": 1728454656,
+    "memory_samples": 5935,
+    "monitor_errors": []
+  }
+]
+STAGE_FINISHED mixed-r2 1793508256.0254347
+STAGE_START context-r1 1793508256.0333316
+[
+  {
+    "mode": "REAL_MODEL",
+    "k": 1,
+    "tasks": 32,
+    "completed": 32,
+    "statuses": {
+      "completed": 32
+    },
+    "drain_s": 62.978497422000146,
+    "completed_tasks_per_s": 0.5081099313242984,
+    "p50_s": 39.30815739099999,
+    "p95_s": 62.26856249500016,
+    "peak_rss_bytes": 1730154496,
+    "memory_samples": 2500,
+    "monitor_errors": []
+  },
+  {
+    "mode": "REAL_MODEL",
+    "k": 8,
+    "tasks": 32,
+    "completed": 32,
+    "statuses": {
+      "completed": 32
+    },
+    "drain_s": 55.24204742899997,
+    "completed_tasks_per_s": 0.5792688991320988,
+    "p50_s": 37.521936631000074,
+    "p95_s": 54.40145113100009,
+    "peak_rss_bytes": 1650614272,
+    "memory_samples": 2111,
+    "monitor_errors": []
+  }
+]
+STAGE_FINISHED context-r1 1793508374.9823608
+SUITE_FINISHED

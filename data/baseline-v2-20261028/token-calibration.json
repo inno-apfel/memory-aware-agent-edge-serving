@@ -1,0 +1,1514 @@
+[
+  {
+    "task_id": "task-0000",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0001",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0002",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0004",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0005",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0006",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0008",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0009",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0010",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0012",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0013",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0014",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 1,
+    "prompt_tokens": 112,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 2,
+    "prompt_tokens": 189,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0000",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0001",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0002",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0004",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0006",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0005",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0008",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0010",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0009",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0012",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0013",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0014",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 1,
+    "prompt_tokens": 112,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 2,
+    "prompt_tokens": 189,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0002",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0000",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0001",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0004",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0006",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0005",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0008",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0010",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0009",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0012",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 1,
+    "prompt_tokens": 112,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 2,
+    "prompt_tokens": 189,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0014",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0013",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0000",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0001",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0002",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0004",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0005",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0006",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0008",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0009",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0010",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0012",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0013",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0014",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 1,
+    "prompt_tokens": 112,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 2,
+    "prompt_tokens": 189,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0000",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0001",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0002",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0004",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0006",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0005",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0008",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0010",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0009",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0012",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0013",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0014",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 1,
+    "prompt_tokens": 112,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 2,
+    "prompt_tokens": 189,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0000",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0002",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0004",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0001",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0008",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0006",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0005",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0012",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0010",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0009",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 1,
+    "prompt_tokens": 112,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 2,
+    "prompt_tokens": 189,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0014",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0013",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0000",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0001",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0002",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0004",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0005",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0006",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0008",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0009",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0010",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0012",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0013",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0014",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 1,
+    "prompt_tokens": 112,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 2,
+    "prompt_tokens": 189,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0000",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0001",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0002",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0004",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0006",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0005",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0008",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0010",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0009",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0012",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0013",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0014",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 1,
+    "prompt_tokens": 112,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 2,
+    "prompt_tokens": 189,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0000",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0002",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0004",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0001",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0008",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0006",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0005",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0012",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0010",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0009",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 1,
+    "prompt_tokens": 112,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0003",
+    "step_id": 2,
+    "prompt_tokens": 189,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0007",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0014",
+    "step_id": 0,
+    "prompt_tokens": 114,
+    "max_tokens": 1024,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0011",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0013",
+    "step_id": 0,
+    "prompt_tokens": 1228,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 0,
+    "prompt_tokens": 34,
+    "max_tokens": 768,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 1,
+    "prompt_tokens": 110,
+    "max_tokens": 128,
+    "within_4096": true
+  },
+  {
+    "task_id": "task-0015",
+    "step_id": 2,
+    "prompt_tokens": 184,
+    "max_tokens": 128,
+    "within_4096": true
+  }
+]

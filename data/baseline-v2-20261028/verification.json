@@ -1,0 +1,12 @@
+{
+  "unit_tests_passed": 6,
+  "real_runs": 9,
+  "tasks_passed": 144,
+  "tasks_total": 144,
+  "complete_three_step_chains": 36,
+  "requests_ok": 216,
+  "source_hashes_identical_across_runs": true,
+  "workload_hash_identical_across_runs": true,
+  "no_retries": true,
+  "no_evaluation_retuning": true
+}

@@ -1,0 +1,26 @@
+# To display the perf.data header info, please use --header/--header-only options.
+#
+#
+# Total Lost Samples: 0
+#
+# Samples: 656  of event 'cpu-clock:u'
+# Event count (approx.): 13387754928
+#
+# Overhead  Shared Object           
+# ........  ........................
+#
+    75.61%  libcuda.so.1.1          
+     5.95%  libc.so.6               
+     5.18%  libggml-cuda.so         
+     3.96%  libggml-base.so.0.28.0  
+     3.51%  libllama-common.so.0.8.0
+     3.51%  libllama.so.0.8.0       
+     1.52%  libcudart.so.12         
+     0.46%  libnvdxgdmal.so.1       
+     0.15%  libllama-server-impl.so 
+     0.15%  libstdc++.so.6.0.35     
+
+
+#
+# (Cannot load tips.txt file, please install perf!)
+#

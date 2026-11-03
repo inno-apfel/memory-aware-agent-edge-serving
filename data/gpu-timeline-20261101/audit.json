@@ -1,0 +1,147 @@
+{
+  "passed": true,
+  "runs": [
+    {
+      "run": "graph-k1-baseline",
+      "group": "suite",
+      "tasks": 16,
+      "requests": 24,
+      "quality_pass": 16,
+      "peak_inflight": 1
+    },
+    {
+      "run": "graph-k1-traced",
+      "group": "suite",
+      "tasks": 16,
+      "requests": 24,
+      "quality_pass": 16,
+      "peak_inflight": 1
+    },
+    {
+      "run": "graph-k2-baseline",
+      "group": "suite",
+      "tasks": 16,
+      "requests": 24,
+      "quality_pass": 16,
+      "peak_inflight": 2
+    },
+    {
+      "run": "graph-k2-traced",
+      "group": "suite",
+      "tasks": 16,
+      "requests": 24,
+      "quality_pass": 16,
+      "peak_inflight": 2
+    },
+    {
+      "run": "graph-k8-baseline",
+      "group": "suite",
+      "tasks": 16,
+      "requests": 24,
+      "quality_pass": 16,
+      "peak_inflight": 8
+    },
+    {
+      "run": "graph-k8-traced",
+      "group": "suite",
+      "tasks": 16,
+      "requests": 24,
+      "quality_pass": 15,
+      "peak_inflight": 8
+    },
+    {
+      "run": "node-k1-baseline",
+      "group": "suite",
+      "tasks": 16,
+      "requests": 24,
+      "quality_pass": 16,
+      "peak_inflight": 1
+    },
+    {
+      "run": "node-k1-traced",
+      "group": "suite",
+      "tasks": 16,
+      "requests": 24,
+      "quality_pass": 16,
+      "peak_inflight": 1
+    },
+    {
+      "run": "node-k2-baseline",
+      "group": "suite",
+      "tasks": 16,
+      "requests": 24,
+      "quality_pass": 16,
+      "peak_inflight": 2
+    },
+    {
+      "run": "node-k2-traced",
+      "group": "suite",
+      "tasks": 16,
+      "requests": 24,
+      "quality_pass": 16,
+      "peak_inflight": 2
+    },
+    {
+      "run": "node-k8-baseline",
+      "group": "suite",
+      "tasks": 16,
+      "requests": 24,
+      "quality_pass": 16,
+      "peak_inflight": 8
+    },
+    {
+      "run": "node-k8-traced",
+      "group": "suite",
+      "tasks": 16,
+      "requests": 24,
+      "quality_pass": 16,
+      "peak_inflight": 8
+    },
+    {
+      "run": "default-k1",
+      "group": "intervention",
+      "tasks": 16,
+      "requests": 24,
+      "quality_pass": 16,
+      "peak_inflight": 1
+    },
+    {
+      "run": "default-k2",
+      "group": "intervention",
+      "tasks": 16,
+      "requests": 24,
+      "quality_pass": 16,
+      "peak_inflight": 2
+    },
+    {
+      "run": "disabled-k1",
+      "group": "intervention",
+      "tasks": 16,
+      "requests": 24,
+      "quality_pass": 16,
+      "peak_inflight": 1
+    },
+    {
+      "run": "disabled-k2",
+      "group": "intervention",
+      "tasks": 16,
+      "requests": 24,
+      "quality_pass": 16,
+      "peak_inflight": 2
+    }
+  ],
+  "test_cases_passed": 13,
+  "exclusions": [
+    "smoke: invalid URL; no real requests, excluded",
+    "smoke2: setup validation only; excluded from comparisons"
+  ],
+  "task_total": 256,
+  "quality_pass": 255,
+  "request_total": 384,
+  "limits": [
+    "one repeat per condition",
+    "short node-level windows",
+    "CUPTI association/missing-event diagnostics retained",
+    "graph K8 overlapped memory-heavy offline analysis; not a clean profiler-overhead comparison"
+  ]
+}

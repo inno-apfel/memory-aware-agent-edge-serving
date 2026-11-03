@@ -1,0 +1,31 @@
+{
+  "reason": "Controlled follow-up after user exited background game and host RAM recovered; collector v2.",
+  "mixed_workload": "mixed64.jsonl",
+  "context_workload": "context32.jsonl",
+  "stages": [
+    [
+      "clean-r1",
+      "mixed64",
+      [
+        1,
+        2,
+        4,
+        8
+      ]
+    ],
+    [
+      "clean-context",
+      "context32",
+      [
+        1,
+        8
+      ]
+    ]
+  ],
+  "repetitions": 1,
+  "server_pid": 450,
+  "wait_for_suite_pid": 503,
+  "planned_wall": 1793508320.6197712,
+  "environment_check": "clean-environment-check.json",
+  "original_runs": "Retained separately; first collector core metrics invalid; later original runs overlap game load or transition."
+}

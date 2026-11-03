@@ -1,0 +1,15 @@
+{
+  "reason": "Replace invalid v1 per-core 100-idle values; raw-counter normalization in collector v2.",
+  "original_telemetry": "Thread CPU, GPU, PSI, vmstat and timings remain valid; v1 per-core values excluded.",
+  "workload": "mixed64.jsonl",
+  "order": [
+    4,
+    1,
+    8,
+    2
+  ],
+  "count": 64,
+  "server_pid": 450,
+  "wait_for_suite_pid": 503,
+  "planned_wall": 1793507894.101588
+}

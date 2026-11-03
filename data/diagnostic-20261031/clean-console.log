@@ -1,0 +1,106 @@
+CLEAN_STAGE_START clean-r1 1793508375.6366236
+[
+  {
+    "mode": "REAL_MODEL",
+    "k": 1,
+    "tasks": 64,
+    "completed": 63,
+    "statuses": {
+      "completed": 63,
+      "validation_failed": 1
+    },
+    "drain_s": 120.14772094,
+    "completed_tasks_per_s": 0.5243545154839955,
+    "p50_s": 78.44767797000003,
+    "p95_s": 118.72564934199998,
+    "peak_rss_bytes": 1731661824,
+    "memory_samples": 4935,
+    "monitor_errors": []
+  },
+  {
+    "mode": "REAL_MODEL",
+    "k": 2,
+    "tasks": 64,
+    "completed": 63,
+    "statuses": {
+      "completed": 63,
+      "validation_failed": 1
+    },
+    "drain_s": 206.7514959959999,
+    "completed_tasks_per_s": 0.3047136355483439,
+    "p50_s": 136.34162681600006,
+    "p95_s": 205.08201021999986,
+    "peak_rss_bytes": 1731670016,
+    "memory_samples": 8237,
+    "monitor_errors": []
+  },
+  {
+    "mode": "REAL_MODEL",
+    "k": 4,
+    "tasks": 64,
+    "completed": 64,
+    "statuses": {
+      "completed": 64
+    },
+    "drain_s": 169.58095014000014,
+    "completed_tasks_per_s": 0.3774008810963957,
+    "p50_s": 121.60490588799999,
+    "p95_s": 167.99309236100004,
+    "peak_rss_bytes": 1731678208,
+    "memory_samples": 6780,
+    "monitor_errors": []
+  },
+  {
+    "mode": "REAL_MODEL",
+    "k": 8,
+    "tasks": 64,
+    "completed": 63,
+    "statuses": {
+      "completed": 63,
+      "validation_failed": 1
+    },
+    "drain_s": 86.68398830299998,
+    "completed_tasks_per_s": 0.7267778194490352,
+    "p50_s": 56.739978322999995,
+    "p95_s": 81.77184472199998,
+    "peak_rss_bytes": 1691291648,
+    "memory_samples": 3464,
+    "monitor_errors": []
+  }
+]
+CLEAN_STAGE_START clean-context 1793508959.943195
+[
+  {
+    "mode": "REAL_MODEL",
+    "k": 1,
+    "tasks": 32,
+    "completed": 32,
+    "statuses": {
+      "completed": 32
+    },
+    "drain_s": 61.84050357000001,
+    "completed_tasks_per_s": 0.5174602105847631,
+    "p50_s": 38.767671992000125,
+    "p95_s": 61.15751994100011,
+    "peak_rss_bytes": 1651355648,
+    "memory_samples": 2457,
+    "monitor_errors": []
+  },
+  {
+    "mode": "REAL_MODEL",
+    "k": 8,
+    "tasks": 32,
+    "completed": 32,
+    "statuses": {
+      "completed": 32
+    },
+    "drain_s": 50.72798990599995,
+    "completed_tasks_per_s": 0.6308154543339226,
+    "p50_s": 36.41886376300013,
+    "p95_s": 50.13582498799991,
+    "peak_rss_bytes": 1651372032,
+    "memory_samples": 1989,
+    "monitor_errors": []
+  }
+]
+CLEAN_SUITE_FINISHED
